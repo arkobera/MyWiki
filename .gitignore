@@ -218,6 +218,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+raw/
 dist
 dist-ssr
 *.local

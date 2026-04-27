@@ -22,6 +22,9 @@ license = {text = "MIT"}
 dependencies = [
   "typer",
   "rich",
+  "fastapi",
+  "python-multipart",
+  "uvicorn",
 ]
 requires-python = ">= 3.12"
 

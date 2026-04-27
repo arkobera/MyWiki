@@ -3,6 +3,30 @@
 
 # 📘 README.md — Memex Prototype (Agentic LLM Wiki)
 
+## Run Locally
+
+### Backend
+
+Start the upload API on port `8000`:
+
+```bash
+uv run python -m backend
+```
+
+The backend accepts uploads at `POST /upload` and stores the original files in `raw/` at the project root.
+
+### Frontend
+
+Start the Vite app:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend targets `http://localhost:8000` by default. Override with `VITE_API_BASE_URL` if needed.
+
 ## 🧠 Overview
 
 This project is a **prototype implementation of a Memex-style system** — an AI-powered pipeline where an LLM:
@@ -159,7 +183,7 @@ Build the pipeline for:
 
 * Backend:
 
-  * File upload API
+  * File upload API in `backend/`
   * Storage handler (`raw/`)
   * Metadata tracking
 
@@ -231,4 +255,3 @@ memex-prototype/
 ```
 
 ---
-

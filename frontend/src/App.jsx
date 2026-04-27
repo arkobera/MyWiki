@@ -32,8 +32,9 @@ export default function App() {
                 Source ingestion workspace
               </h1>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
-                Upload raw material, inspect the returned preview, and keep the
-                ingestion state visible while the backend pipeline comes online.
+                Upload PDFs and source files, inspect the returned preview, and
+                keep the ingestion state visible while the dedicated backend
+                stores originals in the raw knowledge layer.
               </p>
             </div>
             <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/10 px-4 py-3 text-sm text-cyan-100">

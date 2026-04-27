@@ -106,7 +106,7 @@ export default function UploadBox({ onUpload }) {
             </h2>
             <p className="mt-2 max-w-md text-sm leading-6 text-slate-300">
               Drag a document into the drop zone or browse from your device. The
-              preview panel will update after a successful upload.
+              backend stores the original file in <code className="font-mono text-cyan-200">raw/</code> and the preview panel updates after a successful upload.
             </p>
           </div>
         </div>
@@ -205,7 +205,7 @@ export default function UploadBox({ onUpload }) {
           disabled={!file || isUploading}
           className="inline-flex items-center justify-center rounded-2xl bg-cyan-300 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
         >
-          {isUploading ? "Uploading..." : "Upload document"}
+          {isUploading ? "Uploading to backend..." : "Upload document"}
         </button>
       </div>
     </section>
