@@ -71,6 +71,16 @@ def healthcheck() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@app.get("/files")
+def list_files() -> dict[str, list[str]]:
+    RAW_DIR.mkdir(exist_ok=True)
+    files = sorted(
+        [path.name for path in RAW_DIR.iterdir() if path.is_file()],
+        key=str.lower,
+    )
+    return {"files": files}
+
+
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)) -> dict[str, str | int]:
     if not file.filename:

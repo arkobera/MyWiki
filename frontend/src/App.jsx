@@ -5,9 +5,18 @@ import FileList from "./components/FileList";
 import GraphPanel from "./components/GraphPanel";
 
 const FILE_STORAGE_KEY = "mywiki-uploaded-files";
+const TAB_STORAGE_KEY = "mywiki-active-tab";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "http://localhost:8000";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState("graphify");
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window === "undefined") {
+      return "graphify";
+    }
+
+    return window.localStorage.getItem(TAB_STORAGE_KEY) || "graphify";
+  });
 
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("Waiting for a document upload.");
@@ -28,6 +37,46 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(FILE_STORAGE_KEY, JSON.stringify(files));
   }, [files]);
+
+  useEffect(() => {
+    window.localStorage.setItem(TAB_STORAGE_KEY, activeTab);
+  }, [activeTab]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    const loadFiles = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/files`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.detail || "Could not load existing files.");
+        }
+
+        if (!ignore && Array.isArray(data.files)) {
+          setFiles(data.files);
+          setStatus(
+            data.files.length > 0
+              ? `Loaded ${data.files.length} existing file${data.files.length === 1 ? "" : "s"} from raw/.`
+              : "No existing files found in raw/."
+          );
+          setStatusTone("idle");
+        }
+      } catch {
+        if (!ignore) {
+          setStatus("Using saved session data. Backend file list could not be loaded.");
+          setStatusTone("idle");
+        }
+      }
+    };
+
+    loadFiles();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const handleUpload = (data) => {
     setContent(
