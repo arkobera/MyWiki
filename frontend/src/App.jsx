@@ -1,55 +1,128 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadBox from "./components/UploadBox";
-import FileViewer from "./components/FileViewer";
 import StatusBar from "./components/StatusBar";
+import FileList from "./components/FileList";
+import GraphPanel from "./components/GraphPanel";
+
+const FILE_STORAGE_KEY = "mywiki-uploaded-files";
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState("graphify");
+
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("Waiting for a document upload.");
   const [statusTone, setStatusTone] = useState("idle");
+  const [files, setFiles] = useState(() => {
+    if (typeof window === "undefined") {
+      return [];
+    }
+
+    try {
+      const storedFiles = window.localStorage.getItem(FILE_STORAGE_KEY);
+      return storedFiles ? JSON.parse(storedFiles) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem(FILE_STORAGE_KEY, JSON.stringify(files));
+  }, [files]);
 
   const handleUpload = (data) => {
     setContent(
       data.preview ||
         (data.isError
           ? "The upload did not complete. Check the status bar for details."
-          : `Upload complete for ${data.fileName}.`)
+          : `Upload complete for ${data.filename || data.fileName}.`)
     );
+
     setStatus(data.status || "Upload finished.");
     setStatusTone(data.isError ? "error" : "success");
+
+    const uploadedName = data.filename || data.fileName;
+
+    if (!data.isError && uploadedName) {
+      setFiles((prev) =>
+        prev.includes(uploadedName) ? prev : [...prev, uploadedName]
+      );
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,_#020617_0%,_#0f172a_48%,_#111827_100%)] px-4 py-6 text-white sm:px-6 lg:px-8">
-      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-7xl flex-col gap-4">
-        <header className="rounded-[28px] border border-white/10 bg-white/[0.03] px-6 py-5 backdrop-blur">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/75">
-            MyWiki
-          </p>
-          <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                Source ingestion workspace
-              </h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
-                Upload PDFs and source files, inspect the returned preview, and
-                keep the ingestion state visible while the dedicated backend
-                stores originals in the raw knowledge layer.
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),_transparent_28%),linear-gradient(180deg,_#020617_0%,_#0f172a_52%,_#111827_100%)] px-4 py-6 text-white sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col gap-4">
+        <section className="flex flex-1 min-h-0 flex-col overflow-hidden rounded-[32px] border border-white/10 bg-slate-950/60 shadow-[0_30px_120px_rgba(2,6,23,0.65)] backdrop-blur">
+          <header className="border-b border-white/10 px-5 py-5 sm:px-6">
+            <div className="rounded-[24px] border border-white/10 bg-white/[0.03] px-5 py-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/70">
+                My Wiki
               </p>
+              <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                  <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                    Document workspace
+                  </h1>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
+                    Upload files on the left and keep your graph area ready for the next phase.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/10 px-4 py-3 text-sm text-cyan-100">
+                  API:{" "}
+                  <span className="font-medium">
+                    {import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/10 px-4 py-3 text-sm text-cyan-100">
-              API target:{" "}
-              <span className="font-medium">
-                {import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"}
-              </span>
+          </header>
+
+          <div className="border-b border-white/10 px-5 py-4 sm:px-6">
+            <div className="grid grid-cols-2 overflow-hidden rounded-[20px] border border-white/10 bg-slate-900/80">
+              <button
+                onClick={() => setActiveTab("graphify")}
+                className={`px-4 py-3 text-left text-base font-medium transition ${
+                  activeTab === "graphify"
+                    ? "bg-white/8 text-white"
+                    : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
+                }`}
+              >
+                Graphify
+              </button>
+
+              <button
+                onClick={() => setActiveTab("chat")}
+                className={`border-l border-white/10 px-4 py-3 text-left text-base font-medium transition ${
+                  activeTab === "chat"
+                    ? "bg-white/8 text-white"
+                    : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
+                }`}
+              >
+                Chat
+              </button>
             </div>
           </div>
-        </header>
 
-        <main className="grid flex-1 gap-4 lg:grid-cols-[minmax(320px,420px)_minmax(0,1fr)]">
-          <UploadBox onUpload={handleUpload} />
-          <FileViewer content={content} />
-        </main>
+          <main className="flex-1 min-h-0 px-5 py-5 sm:px-6 sm:py-6">
+          {activeTab === "graphify" ? (
+            <div className="grid h-full min-h-0 gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">
+              <div className="flex min-h-0 flex-col gap-5">
+                <UploadBox onUpload={handleUpload} />
+                <FileList files={files} />
+              </div>
+
+              <div className="min-h-[320px] lg:min-h-0">
+                <GraphPanel />
+              </div>
+            </div>
+          ) : (
+            <div className="flex h-full min-h-[420px] items-center justify-center rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,_rgba(15,23,42,0.95),_rgba(2,6,23,0.96))] px-6 text-center text-lg font-medium text-slate-400">
+              Coming soon
+            </div>
+          )}
+          </main>
+        </section>
 
         <StatusBar status={status} tone={statusTone} />
       </div>

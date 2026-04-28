@@ -92,7 +92,7 @@ export default function UploadBox({ onUpload }) {
   };
 
   return (
-    <section className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top_left,_rgba(96,165,250,0.22),_transparent_36%),linear-gradient(160deg,_rgba(15,23,42,0.96),_rgba(3,7,18,0.92))] p-6 text-white shadow-[0_24px_80px_rgba(2,6,23,0.55)]">
+    <section className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top_left,_rgba(96,165,250,0.22),_transparent_36%),linear-gradient(160deg,_rgba(15,23,42,0.96),_rgba(3,7,18,0.92))] p-5 text-white shadow-[0_24px_80px_rgba(2,6,23,0.55)]">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(130deg,transparent,rgba(148,163,184,0.08),transparent)]" />
 
       <div className="relative flex h-full flex-col gap-5">
@@ -102,11 +102,10 @@ export default function UploadBox({ onUpload }) {
           </p>
           <div>
             <h2 className="text-2xl font-semibold tracking-tight text-white">
-              Upload a source file
+              Upload box
             </h2>
             <p className="mt-2 max-w-md text-sm leading-6 text-slate-300">
-              Drag a document into the drop zone or browse from your device. The
-              backend stores the original file in <code className="font-mono text-cyan-200">raw/</code> and the preview panel updates after a successful upload.
+              Drag a document into the drop zone or browse from your device. Uploaded files stay listed below in the documents panel.
             </p>
           </div>
         </div>
@@ -124,7 +123,7 @@ export default function UploadBox({ onUpload }) {
             setIsDragging(false);
             selectFile(event.dataTransfer.files?.[0] || null);
           }}
-          className={`group flex min-h-64 w-full flex-col items-center justify-center rounded-[24px] border border-dashed px-6 py-8 text-center transition ${
+          className={`group flex min-h-48 w-full flex-col items-center justify-center rounded-[24px] border border-dashed px-6 py-8 text-center transition ${
             isDragging
               ? "border-cyan-300 bg-cyan-300/10 shadow-[0_0_0_1px_rgba(103,232,249,0.45)]"
               : "border-slate-600/80 bg-slate-950/40 hover:border-slate-400 hover:bg-slate-900/70"
