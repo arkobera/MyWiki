@@ -6,6 +6,7 @@ from pathlib import Path
 import uvicorn
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from Pipeline.main import run_pipeline
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT_DIR / "raw"
@@ -82,7 +83,7 @@ def list_files() -> dict[str, list[str]]:
 
 
 @app.post("/upload")
-async def upload_file(file: UploadFile = File(...)) -> dict[str, str | int]:
+async def upload_file(file: UploadFile = File(...)) -> dict[str, object]:
     if not file.filename:
         msg = "A filename is required."
         raise HTTPException(status_code=400, detail=msg)
@@ -100,13 +101,27 @@ async def upload_file(file: UploadFile = File(...)) -> dict[str, str | int]:
     destination = build_destination(file.filename)
     destination.write_bytes(contents)
 
-    return {
+    response: dict[str, object] = {
         "filename": destination.name,
         "path": str(destination.relative_to(ROOT_DIR)),
         "size": len(contents),
         "preview": create_preview(contents, destination),
         "message": f"Saved {destination.name} to raw/",
     }
+
+    if suffix == PDF_EXTENSION:
+        try:
+            response["pipeline"] = {
+                "status": "indexed",
+                **run_pipeline(destination.name),
+            }
+        except Exception as exc:
+            response["pipeline"] = {
+                "status": "failed",
+                "error": str(exc),
+            }
+
+    return response
 
 
 def main() -> None:

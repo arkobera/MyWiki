@@ -1,11 +1,11 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "Python-Boilerplate"
+name = "MyWiki"
 version = "0.1.0"
-description = "Python Boilerplate contains all the boilerplate you need to create a Python package."
+description = "Prototype Memex-style wiki with a FastAPI upload backend."
 readme = "README.md"
 authors = [
   {name = "Arko Bera", email = "arkobera77@gmail.com"}
@@ -14,90 +14,56 @@ maintainers = [
   {name = "Arko Bera", email = "arkobera77@gmail.com"}
 ]
 classifiers = [
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Typing :: Typed",
+  "Programming Language :: Python :: 3",
+  "Typing :: Typed",
 ]
-license = {text = "MIT"}
+license = "MIT"
 dependencies = [
   "typer",
   "rich",
   "fastapi",
   "python-multipart",
   "uvicorn",
+  "langchain>=1.3.1",
+  "langchain-community>=0.4.1",
+  "langchain-text-splitters>=1.0.0",
+  "chromadb>=1.3.0",
+  "sentence-transformers>=5.1.2",
+  "pypdf>=6.1.3",
 ]
-requires-python = ">= 3.12"
+requires-python = ">=3.12"
+
+[project.scripts]
+mywiki-backend = "backend.app:main"
 
 [dependency-groups]
 dev = [
-    { include-group = "lint" },
-    { include-group = "test" },
-    { include-group = "typecheck" },
+  { include-group = "lint" },
+  { include-group = "test" },
+  { include-group = "typecheck" },
 ]
 lint = [
-    "ruff",
+  "ruff",
 ]
 test = [
-    "coverage",
-    "pytest",
+  "coverage",
+  "httpx",
+  "pytest",
 ]
 typecheck = [
-    "ty",
+  "ty",
 ]
 docs = [
-    "zensical",
-    "mkdocstrings-python",
-]
-
-[project.urls]
-bugs = "https://github.com/arkobera/Python-Boilerplate/issues"
-changelog = "https://github.com/arkobera/Python-Boilerplate/releases"
-documentation = "https://arkobera.github.io/Python-Boilerplate/"
-homepage = "https://github.com/arkobera/Python-Boilerplate"
-
-[project.scripts]
-python_boilerplate = "python_boilerplate.cli:app"
-
-[tool.ty]
-# All rules are enabled as "error" by default; no need to specify unless overriding.
-# Example override: relax a rule for the entire project (uncomment if needed).
-# rules.TY015 = "warn"  # For invalid-argument-type, warn instead of error.
-
-[tool.ruff]
-line-length = 120
-
-[tool.ruff.lint]
-select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # Pyflakes
-    "I",   # isort
-    "B",   # flake8-bugbear
-    "UP",  # pyupgrade
+  "zensical",
+  "mkdocstrings-python",
 ]
 
 [tool.coverage.run]
 branch = true
 parallel = true
-source = ["src/", "tests/"]
 
-[tool.coverage.report]
-show_missing = true
-skip_covered = true
-fail_under = 50
-exclude_also = [
-    "if TYPE_CHECKING:",
-    "if typing.TYPE_CHECKING:",
-    "@overload",
-    "@typing.overload",
-    "class .*\\bProtocol\\):",
-    "@(abc\\.)?abstractmethod",
-    "raise NotImplementedError",
-    "\\.\\.\\.",
-]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
+[tool.setuptools]
+packages = ["backend", "Pipeline"]
 
 [tool.uv]
 package = true
