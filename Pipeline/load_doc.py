@@ -76,5 +76,4 @@ class VectorStore:
 
         ids = [str(uuid4()) for _ in self.chunks]
         vectorstore.add_documents(documents=self.chunks, ids=ids)
-        vectorstore.persist()
         return vectorstore

@@ -53,7 +53,7 @@ The system follows a **4-phase architecture**:
 ## Clear Port Process
 
 ```
-sudo lsof -i :8080
+sudo lsof -i :8080 (5173 and 8000)
 sudo kill 1234 (Write process Id, 1234 is just an example)
 sudo kill -9 1234 (force kill)
 ```

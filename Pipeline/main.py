@@ -6,9 +6,11 @@ from typing import Any
 
 from Pipeline.load_doc import Chunker, Embedder, LoadDoc, VectorStore
 
+ROOT_DIR = Path(__file__).resolve().parent.parent
+
 
 def run_pipeline(file_name: str) -> dict[str, Any]:
-    source_path = Path("raw") / file_name
+    source_path = ROOT_DIR / "raw" / file_name
     if not source_path.exists():
         msg = f"Source file not found: {source_path}"
         raise FileNotFoundError(msg)

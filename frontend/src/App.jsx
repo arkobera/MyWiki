@@ -21,6 +21,15 @@ export default function App() {
   const [content, setContent] = useState("");
   const [status, setStatus] = useState("Waiting for a document upload.");
   const [statusTone, setStatusTone] = useState("idle");
+  const [embeddingStatus, setEmbeddingStatus] = useState({
+    generated: false,
+    failed: false,
+    skipped: true,
+    message: "Embeddings will be generated for PDF uploads.",
+    chunks: null,
+    documents: null,
+    vectorDirectory: null,
+  });
   const [files, setFiles] = useState(() => {
     if (typeof window === "undefined") {
       return [];
@@ -88,6 +97,17 @@ export default function App() {
 
     setStatus(data.status || "Upload finished.");
     setStatusTone(data.isError ? "error" : "success");
+    setEmbeddingStatus(
+      data.embeddingStatus || {
+        generated: false,
+        failed: false,
+        skipped: true,
+        message: "Embedding status unavailable.",
+        chunks: null,
+        documents: null,
+        vectorDirectory: null,
+      }
+    );
 
     const uploadedName = data.filename || data.fileName;
 
@@ -173,7 +193,11 @@ export default function App() {
           </main>
         </section>
 
-        <StatusBar status={status} tone={statusTone} />
+        <StatusBar
+          status={status}
+          tone={statusTone}
+          embeddingStatus={embeddingStatus}
+        />
       </div>
     </div>
   );

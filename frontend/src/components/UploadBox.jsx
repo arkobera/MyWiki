@@ -66,13 +66,31 @@ export default function UploadBox({ onUpload }) {
         throw new Error(data.detail || data.message || "Upload failed.");
       }
 
+      const pipelineStatus = data.pipeline?.status || null;
+      const pipelineError = data.pipeline?.error || "";
+      const embeddingGenerated = pipelineStatus === "indexed";
+      const indexingSummary =
+        pipelineStatus === "indexed"
+          ? `Embeddings generated successfully for ${data.pipeline?.chunks ?? 0} chunk${data.pipeline?.chunks === 1 ? "" : "s"}.`
+          : pipelineStatus === "failed"
+            ? `Embedding generation failed: ${pipelineError || "Unknown pipeline error."}`
+            : "Embedding generation was not run for this file type.";
+
       onUpload({
         fileName: file.name,
+        filename: data.filename || file.name,
         preview: data.preview,
-        status:
-          data.message ||
-          data.status ||
-          `${file.name} uploaded successfully.`,
+        status: data.message || data.status || `${file.name} uploaded successfully.`,
+        embeddingStatus: {
+          generated: embeddingGenerated,
+          failed: pipelineStatus === "failed",
+          skipped: pipelineStatus === null,
+          message: indexingSummary,
+          chunks: data.pipeline?.chunks ?? null,
+          documents: data.pipeline?.documents ?? null,
+          vectorDirectory: data.pipeline?.vector_directory ?? null,
+        },
+        isError: pipelineStatus === "failed",
       });
     } catch (uploadError) {
       const message =
@@ -84,6 +102,15 @@ export default function UploadBox({ onUpload }) {
         fileName: file.name,
         preview: "",
         status: `Upload failed: ${message}`,
+        embeddingStatus: {
+          generated: false,
+          failed: true,
+          skipped: false,
+          message: `Embedding generation failed because the upload did not complete: ${message}`,
+          chunks: null,
+          documents: null,
+          vectorDirectory: null,
+        },
         isError: true,
       });
     } finally {

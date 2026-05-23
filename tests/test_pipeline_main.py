@@ -43,18 +43,42 @@ def test_run_pipeline_returns_indexing_summary(monkeypatch, tmp_path) -> None:
     raw_dir.mkdir()
     (raw_dir / "sample.pdf").write_bytes(b"%PDF-1.4 sample")
     monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(pipeline_main, "ROOT_DIR", tmp_path)
 
     monkeypatch.setattr(pipeline_main, "LoadDoc", FakeLoader)
     monkeypatch.setattr(pipeline_main, "Chunker", FakeChunker)
     monkeypatch.setattr(pipeline_main, "Embedder", FakeEmbedder)
     monkeypatch.setattr(pipeline_main, "VectorStore", FakeVectorStore)
 
+    FakeVectorStore.stored = False
     result = pipeline_main.run_pipeline("sample.pdf")
 
     assert result["file_name"] == "sample.pdf"
     assert result["documents"] == 2
     assert result["chunks"] == 3
     assert result["vector_collection"] == "pdf_docs"
+    assert FakeVectorStore.stored is True
+
+
+def test_run_pipeline_uses_project_root_when_cwd_is_nested(monkeypatch, tmp_path) -> None:
+    raw_dir = tmp_path / "raw"
+    raw_dir.mkdir()
+    (raw_dir / "sample.pdf").write_bytes(b"%PDF-1.4 sample")
+    backend_dir = tmp_path / "backend"
+    backend_dir.mkdir()
+    monkeypatch.chdir(backend_dir)
+    monkeypatch.setattr(pipeline_main, "ROOT_DIR", tmp_path)
+
+    monkeypatch.setattr(pipeline_main, "LoadDoc", FakeLoader)
+    monkeypatch.setattr(pipeline_main, "Chunker", FakeChunker)
+    monkeypatch.setattr(pipeline_main, "Embedder", FakeEmbedder)
+    monkeypatch.setattr(pipeline_main, "VectorStore", FakeVectorStore)
+
+    FakeVectorStore.stored = False
+    result = pipeline_main.run_pipeline("sample.pdf")
+
+    assert result["file_name"] == "sample.pdf"
+    assert result["chunks"] == 3
     assert FakeVectorStore.stored is True
 
 
