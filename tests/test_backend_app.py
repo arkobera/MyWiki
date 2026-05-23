@@ -18,8 +18,14 @@ def test_pdf_upload_runs_pipeline(monkeypatch, tmp_path) -> None:
             "file_name": file_name,
             "documents": 2,
             "chunks": 5,
-            "vector_collection": "pdf_docs",
-            "vector_directory": "chromadb",
+            "vector_collection": "document_chunks",
+            "vector_directory": "embeddings/sample-embedding",
+            "embedding_id": "sample-embedding",
+            "summary": "A concise technical summary.",
+            "keywords": ["transformer attention", "sequence modeling"],
+            "tags": ["transformers", "nlp"],
+            "category": "Machine Learning Research",
+            "index_path": "Agents/index.md",
         },
     )
 
@@ -34,4 +40,5 @@ def test_pdf_upload_runs_pipeline(monkeypatch, tmp_path) -> None:
     assert payload["filename"] == "sample.pdf"
     assert payload["pipeline"]["status"] == "indexed"
     assert payload["pipeline"]["chunks"] == 5
+    assert payload["pipeline"]["embedding_id"] == "sample-embedding"
     assert (raw_dir / "sample.pdf").exists()
