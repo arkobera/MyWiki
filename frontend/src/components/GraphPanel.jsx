@@ -41,6 +41,16 @@ const KIND_THEME = {
     chip: "bg-violet-300/18 text-violet-100",
     minimap: "#c084fc",
   },
+  file: {
+    card: "border-emerald-300/75 bg-emerald-400/12 text-emerald-50",
+    chip: "bg-emerald-300/18 text-emerald-100",
+    minimap: "#34d399",
+  },
+  embedding: {
+    card: "border-sky-300/75 bg-sky-400/12 text-sky-50",
+    chip: "bg-sky-300/18 text-sky-100",
+    minimap: "#38bdf8",
+  },
   default: {
     card: "border-slate-300/60 bg-slate-400/10 text-slate-50",
     chip: "bg-slate-300/15 text-slate-100",
@@ -78,74 +88,46 @@ function anchorForKind(kind) {
 }
 
 function layoutGraph(sourceNodes, sourceEdges) {
-  const simNodes = sourceNodes.map((node, index) => {
-    const anchor = anchorForKind(node.data?.kind);
-    const fallback = node.position || { x: 0, y: 0 };
-
-    return {
-      ...node,
-      x: fallback.x + anchor.x + ((index % 4) * 30),
-      y: fallback.y + anchor.y + ((index % 6) * 26),
-    };
-  });
-
-  const links = sourceEdges.map((edge) => ({
-    ...edge,
-    source: edge.source,
-    target: edge.target,
-  }));
-
-  const simulation = forceSimulation(simNodes)
-    .force(
-      "link",
-      forceLink(links)
-        .id((node) => node.id)
-        .distance((link) => {
-          if (link.data?.relation === "related documents") {
-            return 200;
-          }
-          if (link.data?.relation === "derived concept") {
-            return 145;
-          }
-          if (link.data?.relation === "contextual proximity") {
-            return 105;
-          }
-          return 165;
-        })
-        .strength((link) => {
-          const weight = Number(link.data?.weight || 1);
-          return Math.min(0.28, 0.08 + (weight * 0.02));
-        })
-    )
-    .force(
-      "charge",
-      forceManyBody().strength((node) => {
-        if (node.data?.kind === "document") {
-          return -1800;
-        }
-        if (node.data?.kind === "category") {
-          return -1200;
-        }
-        return -700;
-      })
-    )
-    .force("collide", forceCollide((node) => nodeRadius(node.data?.kind)).iterations(3))
-    .force("center", forceCenter(0, 0))
-    .force("x", forceX((node) => anchorForKind(node.data?.kind).x).strength(0.18))
-    .force("y", forceY((node) => anchorForKind(node.data?.kind).y).strength(0.08))
-    .stop();
-
-  for (let tick = 0; tick < 320; tick += 1) {
-    simulation.tick();
-  }
-
-  simulation.stop();
-
-  const positionedNodes = simNodes.map((node) => ({
+  const safeNodes = sourceNodes.map((node, index) => ({
     ...node,
     position: {
-      x: Math.round(node.x + 1050),
-      y: Math.round(node.y + 700),
+      x: Number.isFinite(node.position?.x) ? node.position.x : 0,
+      y: Number.isFinite(node.position?.y) ? node.position.y : 0,
+    },
+    __layoutIndex: index,
+  }));
+
+  const width = 960;
+  const height = 540;
+
+  const bounds = safeNodes.reduce(
+    (acc, node) => {
+      const x = node.position.x;
+      const y = node.position.y;
+      return {
+        minX: Math.min(acc.minX, x),
+        maxX: Math.max(acc.maxX, x),
+        minY: Math.min(acc.minY, y),
+        maxY: Math.max(acc.maxY, y),
+      };
+    },
+    { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity }
+  );
+
+  const graphWidth = Math.max(bounds.maxX - bounds.minX, 160);
+  const graphHeight = Math.max(bounds.maxY - bounds.minY, 160);
+  const scale = Math.min((width - 120) / graphWidth, (height - 120) / graphHeight, 1);
+
+  const centerX = (bounds.minX + bounds.maxX) / 2;
+  const centerY = (bounds.minY + bounds.maxY) / 2;
+  const targetCenterX = width / 2;
+  const targetCenterY = height / 2;
+
+  const positionedNodes = safeNodes.map((node) => ({
+    ...node,
+    position: {
+      x: Math.round((node.position.x - centerX) * scale + targetCenterX),
+      y: Math.round((node.position.y - centerY) * scale + targetCenterY),
     },
   }));
 
@@ -221,6 +203,9 @@ const nodeTypes = {
   concept: KnowledgeNode,
   document: KnowledgeNode,
   keyword: KnowledgeNode,
+  file: KnowledgeNode,
+  embedding: KnowledgeNode,
+  meta: KnowledgeNode,
   default: KnowledgeNode,
 };
 
@@ -264,7 +249,9 @@ export default function GraphPanel({ refreshKey = "" }) {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/knowledge-graph`);
+        const response = await fetch(`${API_BASE_URL}/knowledge-graph`, {
+          cache: "no-store",
+        });
         const payload = await response.json();
 
         if (!response.ok) {
@@ -334,7 +321,7 @@ export default function GraphPanel({ refreshKey = "" }) {
     : formatInspectorLabel(selectedEdge);
 
   return (
-    <section className="flex h-full min-h-[420px] flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,_rgba(15,23,42,0.95),_rgba(2,6,23,0.96))] shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+    <section className="flex w-full min-h-[420px] flex-1 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,_rgba(15,23,42,0.95),_rgba(2,6,23,0.96))] shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
       <div className="border-b border-white/8 px-6 py-5">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -373,30 +360,32 @@ export default function GraphPanel({ refreshKey = "" }) {
           </div>
         ) : hasGraphData ? (
           <>
-            <div className="h-full min-h-[420px] w-full flex-1">
-              <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                nodeTypes={nodeTypes}
-                fitView
-                fitViewOptions={fitViewOptions}
-                nodesDraggable
-                panOnScroll
-                zoomOnScroll
-                onNodeClick={(_, node) => {
-                  setSelectedNode(node);
-                  setSelectedEdge(null);
-                }}
-                onEdgeClick={(_, edge) => {
-                  setSelectedEdge(edge);
-                  setSelectedNode(null);
-                }}
-                onPaneClick={() => {
-                  setSelectedNode(null);
-                  setSelectedEdge(null);
-                }}
-                className="bg-slate-950/65"
-              >
+            <div className="min-h-0 flex-1">
+              <div className="h-[clamp(420px,56vh,760px)] w-full min-w-0">
+                <ReactFlow
+                  nodes={nodes}
+                  edges={edges}
+                  nodeTypes={nodeTypes}
+                  fitView
+                  fitViewOptions={fitViewOptions}
+                  nodesDraggable
+                  panOnScroll
+                  zoomOnScroll
+                  onNodeClick={(_, node) => {
+                    setSelectedNode(node);
+                    setSelectedEdge(null);
+                  }}
+                  onEdgeClick={(_, edge) => {
+                    setSelectedEdge(edge);
+                    setSelectedNode(null);
+                  }}
+                  onPaneClick={() => {
+                    setSelectedNode(null);
+                    setSelectedEdge(null);
+                  }}
+                  className="bg-slate-950/65"
+                  style={{ width: "100%", height: "100%" }}
+                >
                 <Background gap={20} size={1} color="rgba(148, 163, 184, 0.18)" />
                 <MiniMap
                   nodeColor={(node) =>
@@ -413,7 +402,8 @@ export default function GraphPanel({ refreshKey = "" }) {
                   zoomable
                 />
                 <Controls position="bottom-right" />
-              </ReactFlow>
+                </ReactFlow>
+              </div>
             </div>
 
             <aside className="border-t border-white/8 bg-slate-950/45 px-5 py-5">

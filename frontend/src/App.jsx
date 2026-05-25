@@ -119,9 +119,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),_transparent_28%),linear-gradient(180deg,_#020617_0%,_#0f172a_52%,_#111827_100%)] px-4 py-6 text-white sm:px-6 lg:px-8">
-      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-6xl flex-col gap-4">
-        <section className="flex flex-1 min-h-0 flex-col overflow-hidden rounded-[32px] border border-white/10 bg-slate-950/60 shadow-[0_30px_120px_rgba(2,6,23,0.65)] backdrop-blur">
+    <div className="min-h-screen w-full bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.14),_transparent_28%),linear-gradient(180deg,_#020617_0%,_#0f172a_52%,_#111827_100%)] px-4 py-6 text-white sm:px-6 lg:px-8">
+      <div className="flex min-h-[calc(100vh-3rem)] w-full flex-col gap-4">
+        <section className="flex w-full flex-1 min-h-0 flex-col overflow-hidden rounded-[32px] border border-white/10 bg-slate-950/60 shadow-[0_30px_120px_rgba(2,6,23,0.65)] backdrop-blur">
           <header className="border-b border-white/10 px-5 py-5 sm:px-6">
             <div className="rounded-[24px] border border-white/10 bg-white/[0.03] px-5 py-4">
               <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/70">
@@ -173,15 +173,15 @@ export default function App() {
             </div>
           </div>
 
-          <main className="flex-1 min-h-0 px-5 py-5 sm:px-6 sm:py-6">
+          <main className="flex flex-1 min-h-0 flex-col px-5 py-5 sm:px-6 sm:py-6">
           {activeTab === "graphify" ? (
-            <div className="grid h-full min-h-0 gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">
+            <div className="grid min-h-0 flex-1 gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">
               <div className="flex min-h-0 flex-col gap-5">
                 <UploadBox onUpload={handleUpload} />
                 <FileList files={files} />
               </div>
 
-              <div className="min-h-[320px] lg:min-h-0">
+              <div className="min-h-0 w-full min-w-0 lg:min-h-0">
                 <GraphPanel refreshKey={files.join("|")} />
               </div>
             </div>
