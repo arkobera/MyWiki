@@ -3,6 +3,10 @@
 
 # 📘 README.md — Memex Prototype (Agentic LLM Wiki)
 
+## Graph Screenshot
+
+![Knowledge graph screenshot](frontend/src/assets/hero.png)
+
 ## Run Locally
 
 ### Backend
