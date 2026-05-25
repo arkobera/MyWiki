@@ -45,3 +45,26 @@ Embedding ID:
 kd-final-report-7de717c72a
 
 ---
+
+## Vision_Trf.pdf
+
+Summary:
+The paper introduces a novel Transformer Encoder MLP Head for Vision tasks, inheriting CNNs' strengths. The MLP contains two layers with a specific hidden size and MLP size, optimized for ImageNet-21k and JFT-300M datasets. The study demonstrates the model's performance on ImageNet-21k and JFT-300M, achieving competitive results.
+
+Keywords:
+- Transformer Encoder MLP Head
+- Vision Transformer
+- CNNs
+- ImageNet-21k
+- JFT-300M
+
+Category:
+Computer Vision
+
+File:
+raw/Vision_Trf.pdf
+
+Embedding ID:
+vision-trf-4ebc453f0f
+
+---

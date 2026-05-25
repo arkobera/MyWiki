@@ -6,7 +6,9 @@ from pathlib import Path
 import uvicorn
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+
 from Pipeline.main import run_pipeline
+from backend.knowledge_graph import serialize_knowledge_graph
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT_DIR / "raw"
@@ -83,6 +85,12 @@ def list_files() -> dict[str, list[str]]:
         key=str.lower,
     )
     return {"files": files}
+
+
+@app.get("/knowledge-graph")
+def knowledge_graph() -> dict[str, object]:
+    graph_data = serialize_knowledge_graph(ROOT_DIR / "Agents" / "index.md")
+    return {"source": "Agents/index.md", **graph_data}
 
 
 @app.post("/upload")

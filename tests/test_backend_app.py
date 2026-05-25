@@ -42,3 +42,67 @@ def test_pdf_upload_runs_pipeline(monkeypatch, tmp_path) -> None:
     assert payload["pipeline"]["chunks"] == 5
     assert payload["pipeline"]["embedding_id"] == "sample-embedding"
     assert (raw_dir / "sample.pdf").exists()
+
+
+def test_knowledge_graph_endpoint_returns_serialized_graph(monkeypatch, tmp_path) -> None:
+    index_path = tmp_path / "Agents" / "index.md"
+    index_path.parent.mkdir()
+    index_path.write_text(
+        """# Document Index
+
+## Alpha
+
+Summary:
+A model for attention.
+
+Keywords:
+- Transformer
+- Attention
+
+Category:
+Artificial Intelligence
+
+File:
+raw/alpha.pdf
+
+Embedding ID:
+embed-alpha
+
+---
+
+## Beta
+
+Summary:
+A speech recognition report.
+
+Keywords:
+- Vision
+- Attention
+
+Category:
+Computer Vision
+
+File:
+raw/beta.pdf
+
+Embedding ID:
+embed-beta
+""",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(backend_app, "ROOT_DIR", tmp_path)
+
+    client = TestClient(backend_app.app)
+    response = client.get("/knowledge-graph")
+
+    assert response.status_code == 200
+    payload = response.json()
+
+    assert payload["source"] == "Agents/index.md"
+    assert payload["nodes"]
+    assert payload["edges"]
+    assert any(node["id"] == "document:Alpha" for node in payload["nodes"])
+    assert any(node["id"] == "keyword:Attention" for node in payload["nodes"])
+    assert any(edge["source"] == "document:Alpha" and edge["target"] == "keyword:Transformer" for edge in payload["edges"])
+    assert any(node.get("position") for node in payload["nodes"])
