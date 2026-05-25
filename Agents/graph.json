@@ -1,0 +1,1658 @@
+{
+  "meta": {
+    "document_count": 3,
+    "node_count": 22,
+    "edge_count": 55
+  },
+  "nodes": [
+    {
+      "id": "category:artificial-intelligence",
+      "type": "category",
+      "position": {
+        "x": 80.0,
+        "y": 220.0
+      },
+      "data": {
+        "label": "Artificial Intelligence",
+        "kind": "category",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "category:computer-vision",
+      "type": "category",
+      "position": {
+        "x": 80.0,
+        "y": 390.0
+      },
+      "data": {
+        "label": "Computer Vision",
+        "kind": "category",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "category:deep-learning",
+      "type": "category",
+      "position": {
+        "x": 80.0,
+        "y": 560.0
+      },
+      "data": {
+        "label": "Deep Learning",
+        "kind": "category",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "concept:transformer",
+      "type": "concept",
+      "position": {
+        "x": 1420.0,
+        "y": 750.0
+      },
+      "data": {
+        "label": "Transformer",
+        "kind": "concept",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 3
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf",
+      "type": "document",
+      "position": {
+        "x": 520.0,
+        "y": 860.0
+      },
+      "data": {
+        "label": "Attention_2017.pdf",
+        "kind": "document",
+        "summary": "The Transformer model architecture, which includes components like Scaled Dot-Product Attention and Multi-Head Attention, is designed to handle input-output dependencies in sequences. Transformer models have shown to achieve better BLEU scores in translation tasks compared to previous state-of-the-art methods. Various variations on the Transformer architecture have been proposed to enhance its performance and generalization capabilities.",
+        "category": "Artificial Intelligence",
+        "embedding_id": "attention-2017-007ce33735",
+        "embedding_path": "embeddings/attention-2017-007ce33735",
+        "source_file": "raw/Attention_2017.pdf",
+        "keyword_count": 5,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf",
+      "type": "document",
+      "position": {
+        "x": 520.0,
+        "y": 1030.0
+      },
+      "data": {
+        "label": "KD_Final_Report.pdf",
+        "kind": "document",
+        "summary": "The paper introduces a knowledge distillation-based hybrid CNN-Transformer framework for real-time imagined speech. The proposed model aims to improve the efficiency and accuracy of speech recognition systems. 0 Experimental results demonstrate the effectiveness of the framework in various speech datasets.",
+        "category": "Deep Learning",
+        "embedding_id": "kd-final-report-7de717c72a",
+        "embedding_path": "embeddings/kd-final-report-7de717c72a",
+        "source_file": "raw/KD_Final_Report.pdf",
+        "keyword_count": 5,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "document:Vision_Trf.pdf",
+      "type": "document",
+      "position": {
+        "x": 740.0,
+        "y": 180.0
+      },
+      "data": {
+        "label": "Vision_Trf.pdf",
+        "kind": "document",
+        "summary": "The paper introduces a novel Transformer Encoder MLP Head for Vision tasks, inheriting CNNs' strengths. The MLP contains two layers with a specific hidden size and MLP size, optimized for ImageNet-21k and JFT-300M datasets. The study demonstrates the model's performance on ImageNet-21k and JFT-300M, achieving competitive results.",
+        "category": "Computer Vision",
+        "embedding_id": "vision-trf-4ebc453f0f",
+        "embedding_path": "embeddings/vision-trf-4ebc453f0f",
+        "source_file": "raw/Vision_Trf.pdf",
+        "keyword_count": 5,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:cnns",
+      "type": "keyword",
+      "position": {
+        "x": 1200.0,
+        "y": 320.0
+      },
+      "data": {
+        "label": "CNNs",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:deep-learning-models",
+      "type": "keyword",
+      "position": {
+        "x": 1200.0,
+        "y": 490.0
+      },
+      "data": {
+        "label": "Deep Learning Models",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:hybrid-cnn-transformer",
+      "type": "keyword",
+      "position": {
+        "x": 1200.0,
+        "y": 660.0
+      },
+      "data": {
+        "label": "Hybrid CNN-Transformer",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:imagenet-21k",
+      "type": "keyword",
+      "position": {
+        "x": 1200.0,
+        "y": 830.0
+      },
+      "data": {
+        "label": "ImageNet-21k",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:jft-300m",
+      "type": "keyword",
+      "position": {
+        "x": 1200.0,
+        "y": 1000.0
+      },
+      "data": {
+        "label": "JFT-300M",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:knowledge-distillation",
+      "type": "keyword",
+      "position": {
+        "x": 1420.0,
+        "y": 150.0
+      },
+      "data": {
+        "label": "Knowledge Distillation",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:long-short-term-memory",
+      "type": "keyword",
+      "position": {
+        "x": 1420.0,
+        "y": 320.0
+      },
+      "data": {
+        "label": "Long short-term memory",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:multi-head-attention",
+      "type": "keyword",
+      "position": {
+        "x": 1420.0,
+        "y": 490.0
+      },
+      "data": {
+        "label": "Multi-Head Attention",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:real-time-imagined-speech",
+      "type": "keyword",
+      "position": {
+        "x": 1420.0,
+        "y": 660.0
+      },
+      "data": {
+        "label": "Real-Time Imagined Speech",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:recurrent-neural-networks",
+      "type": "keyword",
+      "position": {
+        "x": 1420.0,
+        "y": 830.0
+      },
+      "data": {
+        "label": "Recurrent neural networks",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:scaled-dot-product-attention",
+      "type": "keyword",
+      "position": {
+        "x": 1420.0,
+        "y": 1000.0
+      },
+      "data": {
+        "label": "Scaled Dot-Product Attention",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:speech-recognition",
+      "type": "keyword",
+      "position": {
+        "x": 1640.0,
+        "y": 150.0
+      },
+      "data": {
+        "label": "Speech Recognition",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:transformer",
+      "type": "keyword",
+      "position": {
+        "x": 1640.0,
+        "y": 320.0
+      },
+      "data": {
+        "label": "Transformer",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:transformer-encoder-mlp-head",
+      "type": "keyword",
+      "position": {
+        "x": 1640.0,
+        "y": 490.0
+      },
+      "data": {
+        "label": "Transformer Encoder MLP Head",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:vision-transformer",
+      "type": "keyword",
+      "position": {
+        "x": 1640.0,
+        "y": 660.0
+      },
+      "data": {
+        "label": "Vision Transformer",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "concept:transformer->keyword:hybrid-cnn-transformer",
+      "source": "concept:transformer",
+      "target": "keyword:hybrid-cnn-transformer",
+      "label": "derived concept",
+      "data": {
+        "relation": "derived concept",
+        "weight": 1.6,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5,
+        "opacity": 0.65
+      }
+    },
+    {
+      "id": "concept:transformer->keyword:transformer-encoder-mlp-head",
+      "source": "concept:transformer",
+      "target": "keyword:transformer-encoder-mlp-head",
+      "label": "derived concept",
+      "data": {
+        "relation": "derived concept",
+        "weight": 1.6,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5,
+        "opacity": 0.65
+      }
+    },
+    {
+      "id": "concept:transformer->keyword:vision-transformer",
+      "source": "concept:transformer",
+      "target": "keyword:vision-transformer",
+      "label": "derived concept",
+      "data": {
+        "relation": "derived concept",
+        "weight": 1.6,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5,
+        "opacity": 0.65
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->category:artificial-intelligence",
+      "source": "document:Attention_2017.pdf",
+      "target": "category:artificial-intelligence",
+      "label": "category",
+      "data": {
+        "relation": "category",
+        "weight": 2.0,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->document:KD_Final_Report.pdf",
+      "source": "document:Attention_2017.pdf",
+      "target": "document:KD_Final_Report.pdf",
+      "label": "1 shared concepts",
+      "data": {
+        "relation": "related documents",
+        "weight": 4.0,
+        "documents": [],
+        "shared_concepts": [
+          "transformer"
+        ],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "straight",
+      "animated": false,
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2.4,
+        "opacity": 0.9
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->document:Vision_Trf.pdf",
+      "source": "document:Attention_2017.pdf",
+      "target": "document:Vision_Trf.pdf",
+      "label": "1 shared concepts",
+      "data": {
+        "relation": "related documents",
+        "weight": 4.0,
+        "documents": [],
+        "shared_concepts": [
+          "transformer"
+        ],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "straight",
+      "animated": false,
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2.4,
+        "opacity": 0.9
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->keyword:long-short-term-memory",
+      "source": "document:Attention_2017.pdf",
+      "target": "keyword:long-short-term-memory",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->keyword:multi-head-attention",
+      "source": "document:Attention_2017.pdf",
+      "target": "keyword:multi-head-attention",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->keyword:recurrent-neural-networks",
+      "source": "document:Attention_2017.pdf",
+      "target": "keyword:recurrent-neural-networks",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->keyword:scaled-dot-product-attention",
+      "source": "document:Attention_2017.pdf",
+      "target": "keyword:scaled-dot-product-attention",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->keyword:transformer",
+      "source": "document:Attention_2017.pdf",
+      "target": "keyword:transformer",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf->category:deep-learning",
+      "source": "document:KD_Final_Report.pdf",
+      "target": "category:deep-learning",
+      "label": "category",
+      "data": {
+        "relation": "category",
+        "weight": 2.0,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf->document:Vision_Trf.pdf",
+      "source": "document:KD_Final_Report.pdf",
+      "target": "document:Vision_Trf.pdf",
+      "label": "1 shared concepts",
+      "data": {
+        "relation": "related documents",
+        "weight": 4.0,
+        "documents": [],
+        "shared_concepts": [
+          "transformer"
+        ],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "straight",
+      "animated": false,
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2.4,
+        "opacity": 0.9
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf->keyword:deep-learning-models",
+      "source": "document:KD_Final_Report.pdf",
+      "target": "keyword:deep-learning-models",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf->keyword:hybrid-cnn-transformer",
+      "source": "document:KD_Final_Report.pdf",
+      "target": "keyword:hybrid-cnn-transformer",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf->keyword:knowledge-distillation",
+      "source": "document:KD_Final_Report.pdf",
+      "target": "keyword:knowledge-distillation",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf->keyword:real-time-imagined-speech",
+      "source": "document:KD_Final_Report.pdf",
+      "target": "keyword:real-time-imagined-speech",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf->keyword:speech-recognition",
+      "source": "document:KD_Final_Report.pdf",
+      "target": "keyword:speech-recognition",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Vision_Trf.pdf->category:computer-vision",
+      "source": "document:Vision_Trf.pdf",
+      "target": "category:computer-vision",
+      "label": "category",
+      "data": {
+        "relation": "category",
+        "weight": 2.0,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Vision_Trf.pdf->keyword:cnns",
+      "source": "document:Vision_Trf.pdf",
+      "target": "keyword:cnns",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Vision_Trf.pdf->keyword:imagenet-21k",
+      "source": "document:Vision_Trf.pdf",
+      "target": "keyword:imagenet-21k",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Vision_Trf.pdf->keyword:jft-300m",
+      "source": "document:Vision_Trf.pdf",
+      "target": "keyword:jft-300m",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Vision_Trf.pdf->keyword:transformer-encoder-mlp-head",
+      "source": "document:Vision_Trf.pdf",
+      "target": "keyword:transformer-encoder-mlp-head",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:Vision_Trf.pdf->keyword:vision-transformer",
+      "source": "document:Vision_Trf.pdf",
+      "target": "keyword:vision-transformer",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "keyword:cnns->keyword:imagenet-21k",
+      "source": "keyword:cnns",
+      "target": "keyword:imagenet-21k",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:cnns->keyword:jft-300m",
+      "source": "keyword:cnns",
+      "target": "keyword:jft-300m",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:hybrid-cnn-transformer->keyword:deep-learning-models",
+      "source": "keyword:hybrid-cnn-transformer",
+      "target": "keyword:deep-learning-models",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:hybrid-cnn-transformer->keyword:real-time-imagined-speech",
+      "source": "keyword:hybrid-cnn-transformer",
+      "target": "keyword:real-time-imagined-speech",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:hybrid-cnn-transformer->keyword:speech-recognition",
+      "source": "keyword:hybrid-cnn-transformer",
+      "target": "keyword:speech-recognition",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:imagenet-21k->keyword:jft-300m",
+      "source": "keyword:imagenet-21k",
+      "target": "keyword:jft-300m",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:knowledge-distillation->keyword:deep-learning-models",
+      "source": "keyword:knowledge-distillation",
+      "target": "keyword:deep-learning-models",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:knowledge-distillation->keyword:hybrid-cnn-transformer",
+      "source": "keyword:knowledge-distillation",
+      "target": "keyword:hybrid-cnn-transformer",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:knowledge-distillation->keyword:real-time-imagined-speech",
+      "source": "keyword:knowledge-distillation",
+      "target": "keyword:real-time-imagined-speech",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:knowledge-distillation->keyword:speech-recognition",
+      "source": "keyword:knowledge-distillation",
+      "target": "keyword:speech-recognition",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:long-short-term-memory->keyword:multi-head-attention",
+      "source": "keyword:long-short-term-memory",
+      "target": "keyword:multi-head-attention",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:long-short-term-memory->keyword:scaled-dot-product-attention",
+      "source": "keyword:long-short-term-memory",
+      "target": "keyword:scaled-dot-product-attention",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:real-time-imagined-speech->keyword:deep-learning-models",
+      "source": "keyword:real-time-imagined-speech",
+      "target": "keyword:deep-learning-models",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:real-time-imagined-speech->keyword:speech-recognition",
+      "source": "keyword:real-time-imagined-speech",
+      "target": "keyword:speech-recognition",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:recurrent-neural-networks->keyword:long-short-term-memory",
+      "source": "keyword:recurrent-neural-networks",
+      "target": "keyword:long-short-term-memory",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:recurrent-neural-networks->keyword:multi-head-attention",
+      "source": "keyword:recurrent-neural-networks",
+      "target": "keyword:multi-head-attention",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:recurrent-neural-networks->keyword:scaled-dot-product-attention",
+      "source": "keyword:recurrent-neural-networks",
+      "target": "keyword:scaled-dot-product-attention",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:scaled-dot-product-attention->keyword:multi-head-attention",
+      "source": "keyword:scaled-dot-product-attention",
+      "target": "keyword:multi-head-attention",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:speech-recognition->keyword:deep-learning-models",
+      "source": "keyword:speech-recognition",
+      "target": "keyword:deep-learning-models",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:transformer->concept:transformer",
+      "source": "keyword:transformer",
+      "target": "concept:transformer",
+      "label": "derived concept",
+      "data": {
+        "relation": "derived concept",
+        "weight": 1.6,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5,
+        "opacity": 0.65
+      }
+    },
+    {
+      "id": "keyword:transformer->keyword:long-short-term-memory",
+      "source": "keyword:transformer",
+      "target": "keyword:long-short-term-memory",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:transformer->keyword:multi-head-attention",
+      "source": "keyword:transformer",
+      "target": "keyword:multi-head-attention",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:transformer->keyword:recurrent-neural-networks",
+      "source": "keyword:transformer",
+      "target": "keyword:recurrent-neural-networks",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:transformer->keyword:scaled-dot-product-attention",
+      "source": "keyword:transformer",
+      "target": "keyword:scaled-dot-product-attention",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:transformer-encoder-mlp-head->keyword:cnns",
+      "source": "keyword:transformer-encoder-mlp-head",
+      "target": "keyword:cnns",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:transformer-encoder-mlp-head->keyword:imagenet-21k",
+      "source": "keyword:transformer-encoder-mlp-head",
+      "target": "keyword:imagenet-21k",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:transformer-encoder-mlp-head->keyword:jft-300m",
+      "source": "keyword:transformer-encoder-mlp-head",
+      "target": "keyword:jft-300m",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:transformer-encoder-mlp-head->keyword:vision-transformer",
+      "source": "keyword:transformer-encoder-mlp-head",
+      "target": "keyword:vision-transformer",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:vision-transformer->keyword:cnns",
+      "source": "keyword:vision-transformer",
+      "target": "keyword:cnns",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:vision-transformer->keyword:imagenet-21k",
+      "source": "keyword:vision-transformer",
+      "target": "keyword:imagenet-21k",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:vision-transformer->keyword:jft-300m",
+      "source": "keyword:vision-transformer",
+      "target": "keyword:jft-300m",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    }
+  ]
+}

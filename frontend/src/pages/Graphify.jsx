@@ -18,7 +18,7 @@ export default function Graphify() {
       </div>
 
       <div className="min-h-[320px] lg:min-h-0">
-        <GraphPanel />
+        <GraphPanel refreshKey={files.join("|")} />
       </div>
     </div>
   );

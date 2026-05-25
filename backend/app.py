@@ -8,7 +8,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 from Pipeline.main import run_pipeline
-from backend.knowledge_graph import serialize_knowledge_graph
+from backend.knowledge_graph import persist_knowledge_graph
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT_DIR / "raw"
@@ -89,7 +89,7 @@ def list_files() -> dict[str, list[str]]:
 
 @app.get("/knowledge-graph")
 def knowledge_graph() -> dict[str, object]:
-    graph_data = serialize_knowledge_graph(ROOT_DIR / "Agents" / "index.md")
+    graph_data = persist_knowledge_graph(ROOT_DIR / "Agents" / "index.md")
     return {"source": "Agents/index.md", **graph_data}
 
 
@@ -122,9 +122,12 @@ async def upload_file(file: UploadFile = File(...)) -> dict[str, object]:
 
     if suffix == PDF_EXTENSION:
         try:
+            pipeline_result = run_pipeline(destination.name)
+            graph_result = persist_knowledge_graph(ROOT_DIR / "Agents" / "index.md")
             response["pipeline"] = {
                 "status": "indexed",
-                **run_pipeline(destination.name),
+                **pipeline_result,
+                "graph_path": graph_result.get("graph_path", "Agents/graph.json"),
             }
         except Exception as exc:
             response["pipeline"] = {

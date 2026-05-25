@@ -100,12 +100,19 @@ embed-beta
     payload = response.json()
 
     assert payload["source"] == "Agents/index.md"
+    assert payload["graph_path"] == "Agents/graph.json"
     assert payload["nodes"]
     assert payload["edges"]
     assert any(node["id"] == "document:Alpha" for node in payload["nodes"])
-    assert any(node["id"] == "keyword:Attention" for node in payload["nodes"])
-    assert any(edge["source"] == "document:Alpha" and edge["target"] == "keyword:Transformer" for edge in payload["edges"])
+    assert any(node["id"] == "keyword:attention" for node in payload["nodes"])
+    assert any(edge["source"] == "document:Alpha" and edge["target"] == "keyword:transformer" for edge in payload["edges"])
+    assert any(
+        {edge["source"], edge["target"]} == {"document:Alpha", "document:Beta"}
+        and edge["data"]["relation"] == "related documents"
+        for edge in payload["edges"]
+    )
     assert any(node.get("position") for node in payload["nodes"])
     alpha_node = next(node for node in payload["nodes"] if node["id"] == "document:Alpha")
     assert alpha_node["data"]["embedding_id"] == "embed-alpha"
     assert alpha_node["data"]["embedding_path"] == "embeddings/embed-alpha"
+    assert (tmp_path / "Agents" / "graph.json").exists()
