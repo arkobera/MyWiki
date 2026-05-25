@@ -24,7 +24,7 @@ function KnowledgeNode({ data }) {
 
   return (
     <div
-      className={`rounded-2xl border px-4 py-3 shadow-[0_24px_80px_rgba(15,23,42,0.45)] ${kindStyles[kind] || kindStyles.default}`}
+      className={`w-[280px] rounded-2xl border px-4 py-3 shadow-[0_24px_80px_rgba(15,23,42,0.45)] ${kindStyles[kind] || kindStyles.default}`}
     >
       <Handle type="target" position="left" className="!bg-transparent" />
       <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/75">
@@ -32,8 +32,23 @@ function KnowledgeNode({ data }) {
       </p>
       <div className="mt-2 text-sm font-semibold text-white">{data.label}</div>
       {data.summary ? (
-        <p className="mt-2 max-w-[220px] text-xs leading-5 text-slate-100/90">
-          {String(data.summary).slice(0, 120)}
+        <p className="mt-2 max-w-[260px] text-xs leading-5 text-slate-100/90">
+          {String(data.summary).slice(0, 150)}
+        </p>
+      ) : null}
+      {data.embedding_id ? (
+        <p className="mt-2 text-[11px] leading-5 text-slate-100/80">
+          <span className="font-semibold text-white">Embedding ID:</span> {data.embedding_id}
+        </p>
+      ) : null}
+      {data.embedding_path ? (
+        <p className="mt-1 text-[11px] leading-5 text-slate-100/80">
+          <span className="font-semibold text-white">Embedding path:</span> {data.embedding_path}
+        </p>
+      ) : null}
+      {data.source_file ? (
+        <p className="mt-1 text-[11px] leading-5 text-slate-100/80">
+          <span className="font-semibold text-white">Source:</span> {data.source_file}
         </p>
       ) : null}
       <Handle type="source" position="right" className="!bg-transparent" />

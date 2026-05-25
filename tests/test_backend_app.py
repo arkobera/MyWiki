@@ -106,3 +106,6 @@ embed-beta
     assert any(node["id"] == "keyword:Attention" for node in payload["nodes"])
     assert any(edge["source"] == "document:Alpha" and edge["target"] == "keyword:Transformer" for edge in payload["edges"])
     assert any(node.get("position") for node in payload["nodes"])
+    alpha_node = next(node for node in payload["nodes"] if node["id"] == "document:Alpha")
+    assert alpha_node["data"]["embedding_id"] == "embed-alpha"
+    assert alpha_node["data"]["embedding_path"] == "embeddings/embed-alpha"

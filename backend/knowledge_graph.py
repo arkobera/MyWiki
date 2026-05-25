@@ -61,6 +61,14 @@ def parse_index_markdown(content: str) -> list[IndexEntry]:
     return entries
 
 
+def derive_embedding_path(index_path: Path, embedding_id: str) -> str:
+    project_root = index_path.parent.parent
+    candidate = project_root / "embeddings" / embedding_id
+    if candidate.exists():
+        return str(candidate.relative_to(project_root))
+    return f"embeddings/{embedding_id}"
+
+
 def build_knowledge_graph(index_path: Path) -> nx.Graph:
     graph = nx.Graph()
 
@@ -71,6 +79,7 @@ def build_knowledge_graph(index_path: Path) -> nx.Graph:
     entries = parse_index_markdown(content)
 
     for entry in entries:
+        embedding_path = derive_embedding_path(index_path, entry.embedding_id)
         document_id = f"document:{entry.document_name}"
         graph.add_node(
             document_id,
@@ -78,6 +87,9 @@ def build_knowledge_graph(index_path: Path) -> nx.Graph:
             label=entry.document_name,
             summary=entry.summary,
             type="document",
+            embedding_id=entry.embedding_id,
+            embedding_path=embedding_path,
+            source_file=entry.file_path,
         )
 
         category = entry.category or "Uncategorized"
@@ -95,6 +107,8 @@ def build_knowledge_graph(index_path: Path) -> nx.Graph:
             kind="embedding",
             label=entry.embedding_id,
             type="meta",
+            embedding_id=entry.embedding_id,
+            embedding_path=embedding_path,
         )
         graph.add_edge(document_id, embedding_id, relation="embedding")
 
@@ -112,7 +126,7 @@ def serialize_knowledge_graph(index_path: Path) -> dict[str, list[dict[str, obje
     if graph.number_of_nodes() == 0:
         return {"nodes": [], "edges": []}
 
-    positions = nx.spring_layout(graph, seed=42, k=1.5)
+    positions = nx.spring_layout(graph, seed=42, k=2.2, iterations=600, scale=600)
     nodes: list[dict[str, object]] = []
     edges: list[dict[str, object]] = []
 
@@ -122,11 +136,17 @@ def serialize_knowledge_graph(index_path: Path) -> dict[str, list[dict[str, obje
             {
                 "id": node_id,
                 "type": node_data.get("type", "default"),
-                "position": {"x": round(float(x) * 420 + 420, 2), "y": round(float(y) * 320 + 320, 2)},
+                "position": {
+                    "x": round(float(x) + 700, 2),
+                    "y": round(float(y) + 500, 2),
+                },
                 "data": {
                     "label": node_data.get("label", node_id),
                     "kind": node_data.get("kind", "default"),
                     "summary": node_data.get("summary", ""),
+                    "embedding_id": node_data.get("embedding_id", ""),
+                    "embedding_path": node_data.get("embedding_path", ""),
+                    "source_file": node_data.get("source_file", ""),
                 },
             }
         )
