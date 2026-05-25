@@ -12,6 +12,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
     "@xyflow/react": "^12.10.2",
+    "cytoscape": "^3.33.1",
+    "cytoscape-dagre": "^2.5.0",
     "d3-force": "^3.0.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"

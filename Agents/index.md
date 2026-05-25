@@ -68,3 +68,26 @@ Embedding ID:
 vision-trf-4ebc453f0f
 
 ---
+
+## gan_paper.pdf
+
+Summary:
+Generative Adversarial Nets, introduced by Ian J. Goodfellow and colleagues, present a framework for training generative models using a two-player minimax game. The paper introduces a global minimum of the virtual training criterion, C(G), which is achieved through the proposed training algorithms. The authors demonstrate the effectiveness of their approach by applying it to various datasets, including MNIST and Fashion-MNIST.
+
+Keywords:
+- Generative Adversarial Networks
+- Minimax Game
+- Virtual Training Criterion
+- Stochastic Gradient Descent
+- Generative Models
+
+Category:
+Machine Learning
+
+File:
+raw/gan_paper.pdf
+
+Embedding ID:
+gan-paper-3d40d087f4
+
+---

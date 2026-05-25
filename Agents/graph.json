@@ -1,8 +1,8 @@
 {
   "meta": {
-    "document_count": 3,
-    "node_count": 22,
-    "edge_count": 55
+    "document_count": 4,
+    "node_count": 31,
+    "edge_count": 77
   },
   "nodes": [
     {
@@ -63,11 +63,68 @@
       }
     },
     {
-      "id": "concept:transformer",
+      "id": "category:machine-learning",
+      "type": "category",
+      "position": {
+        "x": 80.0,
+        "y": 730.0
+      },
+      "data": {
+        "label": "Machine Learning",
+        "kind": "category",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "concept:models",
       "type": "concept",
       "position": {
         "x": 1420.0,
-        "y": 750.0
+        "y": 920.0
+      },
+      "data": {
+        "label": "Models",
+        "kind": "concept",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 2
+      }
+    },
+    {
+      "id": "concept:networks",
+      "type": "concept",
+      "position": {
+        "x": 1420.0,
+        "y": 1090.0
+      },
+      "data": {
+        "label": "Networks",
+        "kind": "concept",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 2
+      }
+    },
+    {
+      "id": "concept:transformer",
+      "type": "concept",
+      "position": {
+        "x": 1640.0,
+        "y": 240.0
       },
       "data": {
         "label": "Transformer",
@@ -85,8 +142,8 @@
       "id": "document:Attention_2017.pdf",
       "type": "document",
       "position": {
-        "x": 520.0,
-        "y": 860.0
+        "x": 740.0,
+        "y": 350.0
       },
       "data": {
         "label": "Attention_2017.pdf",
@@ -101,11 +158,30 @@
       }
     },
     {
+      "id": "document:gan_paper.pdf",
+      "type": "document",
+      "position": {
+        "x": 740.0,
+        "y": 520.0
+      },
+      "data": {
+        "label": "gan_paper.pdf",
+        "kind": "document",
+        "summary": "Generative Adversarial Nets, introduced by Ian J. Goodfellow and colleagues, present a framework for training generative models using a two-player minimax game. The paper introduces a global minimum of the virtual training criterion, C(G), which is achieved through the proposed training algorithms. The authors demonstrate the effectiveness of their approach by applying it to various datasets, including MNIST and Fashion-MNIST.",
+        "category": "Machine Learning",
+        "embedding_id": "gan-paper-3d40d087f4",
+        "embedding_path": "embeddings/gan-paper-3d40d087f4",
+        "source_file": "raw/gan_paper.pdf",
+        "keyword_count": 5,
+        "document_count": 0
+      }
+    },
+    {
       "id": "document:KD_Final_Report.pdf",
       "type": "document",
       "position": {
-        "x": 520.0,
-        "y": 1030.0
+        "x": 740.0,
+        "y": 690.0
       },
       "data": {
         "label": "KD_Final_Report.pdf",
@@ -124,7 +200,7 @@
       "type": "document",
       "position": {
         "x": 740.0,
-        "y": 180.0
+        "y": 860.0
       },
       "data": {
         "label": "Vision_Trf.pdf",
@@ -143,7 +219,7 @@
       "type": "keyword",
       "position": {
         "x": 1200.0,
-        "y": 320.0
+        "y": 1000.0
       },
       "data": {
         "label": "CNNs",
@@ -161,8 +237,8 @@
       "id": "keyword:deep-learning-models",
       "type": "keyword",
       "position": {
-        "x": 1200.0,
-        "y": 490.0
+        "x": 1420.0,
+        "y": 150.0
       },
       "data": {
         "label": "Deep Learning Models",
@@ -177,10 +253,48 @@
       }
     },
     {
+      "id": "keyword:generative-adversarial-networks",
+      "type": "keyword",
+      "position": {
+        "x": 1420.0,
+        "y": 320.0
+      },
+      "data": {
+        "label": "Generative Adversarial Networks",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
+      "id": "keyword:generative-models",
+      "type": "keyword",
+      "position": {
+        "x": 1420.0,
+        "y": 490.0
+      },
+      "data": {
+        "label": "Generative Models",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
       "id": "keyword:hybrid-cnn-transformer",
       "type": "keyword",
       "position": {
-        "x": 1200.0,
+        "x": 1420.0,
         "y": 660.0
       },
       "data": {
@@ -199,7 +313,7 @@
       "id": "keyword:imagenet-21k",
       "type": "keyword",
       "position": {
-        "x": 1200.0,
+        "x": 1420.0,
         "y": 830.0
       },
       "data": {
@@ -218,7 +332,7 @@
       "id": "keyword:jft-300m",
       "type": "keyword",
       "position": {
-        "x": 1200.0,
+        "x": 1420.0,
         "y": 1000.0
       },
       "data": {
@@ -237,7 +351,7 @@
       "id": "keyword:knowledge-distillation",
       "type": "keyword",
       "position": {
-        "x": 1420.0,
+        "x": 1640.0,
         "y": 150.0
       },
       "data": {
@@ -256,7 +370,7 @@
       "id": "keyword:long-short-term-memory",
       "type": "keyword",
       "position": {
-        "x": 1420.0,
+        "x": 1640.0,
         "y": 320.0
       },
       "data": {
@@ -272,11 +386,30 @@
       }
     },
     {
+      "id": "keyword:minimax-game",
+      "type": "keyword",
+      "position": {
+        "x": 1640.0,
+        "y": 490.0
+      },
+      "data": {
+        "label": "Minimax Game",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
       "id": "keyword:multi-head-attention",
       "type": "keyword",
       "position": {
-        "x": 1420.0,
-        "y": 490.0
+        "x": 1640.0,
+        "y": 660.0
       },
       "data": {
         "label": "Multi-Head Attention",
@@ -294,8 +427,8 @@
       "id": "keyword:real-time-imagined-speech",
       "type": "keyword",
       "position": {
-        "x": 1420.0,
-        "y": 660.0
+        "x": 1640.0,
+        "y": 830.0
       },
       "data": {
         "label": "Real-Time Imagined Speech",
@@ -313,8 +446,8 @@
       "id": "keyword:recurrent-neural-networks",
       "type": "keyword",
       "position": {
-        "x": 1420.0,
-        "y": 830.0
+        "x": 1640.0,
+        "y": 1000.0
       },
       "data": {
         "label": "Recurrent neural networks",
@@ -332,8 +465,8 @@
       "id": "keyword:scaled-dot-product-attention",
       "type": "keyword",
       "position": {
-        "x": 1420.0,
-        "y": 1000.0
+        "x": 1860.0,
+        "y": 150.0
       },
       "data": {
         "label": "Scaled Dot-Product Attention",
@@ -351,8 +484,8 @@
       "id": "keyword:speech-recognition",
       "type": "keyword",
       "position": {
-        "x": 1640.0,
-        "y": 150.0
+        "x": 1860.0,
+        "y": 320.0
       },
       "data": {
         "label": "Speech Recognition",
@@ -367,11 +500,30 @@
       }
     },
     {
+      "id": "keyword:stochastic-gradient-descent",
+      "type": "keyword",
+      "position": {
+        "x": 1860.0,
+        "y": 490.0
+      },
+      "data": {
+        "label": "Stochastic Gradient Descent",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
       "id": "keyword:transformer",
       "type": "keyword",
       "position": {
-        "x": 1640.0,
-        "y": 320.0
+        "x": 1860.0,
+        "y": 660.0
       },
       "data": {
         "label": "Transformer",
@@ -389,8 +541,8 @@
       "id": "keyword:transformer-encoder-mlp-head",
       "type": "keyword",
       "position": {
-        "x": 1640.0,
-        "y": 490.0
+        "x": 1860.0,
+        "y": 830.0
       },
       "data": {
         "label": "Transformer Encoder MLP Head",
@@ -405,11 +557,30 @@
       }
     },
     {
+      "id": "keyword:virtual-training-criterion",
+      "type": "keyword",
+      "position": {
+        "x": 1860.0,
+        "y": 1000.0
+      },
+      "data": {
+        "label": "Virtual Training Criterion",
+        "kind": "keyword",
+        "summary": "",
+        "category": "",
+        "embedding_id": "",
+        "embedding_path": "",
+        "source_file": "",
+        "keyword_count": 0,
+        "document_count": 0
+      }
+    },
+    {
       "id": "keyword:vision-transformer",
       "type": "keyword",
       "position": {
-        "x": 1640.0,
-        "y": 660.0
+        "x": 2080.0,
+        "y": 150.0
       },
       "data": {
         "label": "Vision Transformer",
@@ -425,6 +596,52 @@
     }
   ],
   "edges": [
+    {
+      "id": "concept:models->keyword:generative-models",
+      "source": "concept:models",
+      "target": "keyword:generative-models",
+      "label": "derived concept",
+      "data": {
+        "relation": "derived concept",
+        "weight": 1.6,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5,
+        "opacity": 0.65
+      }
+    },
+    {
+      "id": "concept:networks->keyword:generative-adversarial-networks",
+      "source": "concept:networks",
+      "target": "keyword:generative-adversarial-networks",
+      "label": "derived concept",
+      "data": {
+        "relation": "derived concept",
+        "weight": 1.6,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5,
+        "opacity": 0.65
+      }
+    },
     {
       "id": "concept:transformer->keyword:hybrid-cnn-transformer",
       "source": "concept:transformer",
@@ -549,6 +766,29 @@
         "documents": [],
         "shared_concepts": [
           "transformer"
+        ],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "straight",
+      "animated": false,
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2.4,
+        "opacity": 0.9
+      }
+    },
+    {
+      "id": "document:Attention_2017.pdf->document:gan_paper.pdf",
+      "source": "document:Attention_2017.pdf",
+      "target": "document:gan_paper.pdf",
+      "label": "1 shared concepts",
+      "data": {
+        "relation": "related documents",
+        "weight": 4.0,
+        "documents": [],
+        "shared_concepts": [
+          "networks"
         ],
         "shared_keywords": [],
         "same_category": false
@@ -698,6 +938,29 @@
         "documents": [],
         "shared_concepts": [
           "transformer"
+        ],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "straight",
+      "animated": false,
+      "style": {
+        "stroke": "#38bdf8",
+        "strokeWidth": 2.4,
+        "opacity": 0.9
+      }
+    },
+    {
+      "id": "document:KD_Final_Report.pdf->document:gan_paper.pdf",
+      "source": "document:KD_Final_Report.pdf",
+      "target": "document:gan_paper.pdf",
+      "label": "1 shared concepts",
+      "data": {
+        "relation": "related documents",
+        "weight": 4.0,
+        "documents": [],
+        "shared_concepts": [
+          "models"
         ],
         "shared_keywords": [],
         "same_category": false
@@ -942,6 +1205,132 @@
       }
     },
     {
+      "id": "document:gan_paper.pdf->category:machine-learning",
+      "source": "document:gan_paper.pdf",
+      "target": "category:machine-learning",
+      "label": "category",
+      "data": {
+        "relation": "category",
+        "weight": 2.0,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:gan_paper.pdf->keyword:generative-adversarial-networks",
+      "source": "document:gan_paper.pdf",
+      "target": "keyword:generative-adversarial-networks",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:gan_paper.pdf->keyword:generative-models",
+      "source": "document:gan_paper.pdf",
+      "target": "keyword:generative-models",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:gan_paper.pdf->keyword:minimax-game",
+      "source": "document:gan_paper.pdf",
+      "target": "keyword:minimax-game",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:gan_paper.pdf->keyword:stochastic-gradient-descent",
+      "source": "document:gan_paper.pdf",
+      "target": "keyword:stochastic-gradient-descent",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
+      "id": "document:gan_paper.pdf->keyword:virtual-training-criterion",
+      "source": "document:gan_paper.pdf",
+      "target": "keyword:virtual-training-criterion",
+      "label": "mentions",
+      "data": {
+        "relation": "mentions",
+        "weight": 2.2,
+        "documents": [],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#94a3b8",
+        "strokeWidth": 1.3,
+        "opacity": 0.45
+      }
+    },
+    {
       "id": "keyword:cnns->keyword:imagenet-21k",
       "source": "keyword:cnns",
       "target": "keyword:imagenet-21k",
@@ -974,6 +1363,121 @@
         "weight": 1.0,
         "documents": [
           "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:deep-learning-models->concept:models",
+      "source": "keyword:deep-learning-models",
+      "target": "concept:models",
+      "label": "derived concept",
+      "data": {
+        "relation": "derived concept",
+        "weight": 1.6,
+        "documents": [
+          "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5,
+        "opacity": 0.65
+      }
+    },
+    {
+      "id": "keyword:generative-adversarial-networks->keyword:generative-models",
+      "source": "keyword:generative-adversarial-networks",
+      "target": "keyword:generative-models",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:generative-adversarial-networks->keyword:minimax-game",
+      "source": "keyword:generative-adversarial-networks",
+      "target": "keyword:minimax-game",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:generative-adversarial-networks->keyword:stochastic-gradient-descent",
+      "source": "keyword:generative-adversarial-networks",
+      "target": "keyword:stochastic-gradient-descent",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:generative-adversarial-networks->keyword:virtual-training-criterion",
+      "source": "keyword:generative-adversarial-networks",
+      "target": "keyword:virtual-training-criterion",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
         ],
         "shared_concepts": [],
         "shared_keywords": [],
@@ -1218,6 +1722,75 @@
       }
     },
     {
+      "id": "keyword:minimax-game->keyword:generative-models",
+      "source": "keyword:minimax-game",
+      "target": "keyword:generative-models",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:minimax-game->keyword:stochastic-gradient-descent",
+      "source": "keyword:minimax-game",
+      "target": "keyword:stochastic-gradient-descent",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:minimax-game->keyword:virtual-training-criterion",
+      "source": "keyword:minimax-game",
+      "target": "keyword:virtual-training-criterion",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
       "id": "keyword:real-time-imagined-speech->keyword:deep-learning-models",
       "source": "keyword:real-time-imagined-speech",
       "target": "keyword:deep-learning-models",
@@ -1261,6 +1834,29 @@
         "stroke": "#c084fc",
         "strokeWidth": 1.4,
         "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:recurrent-neural-networks->concept:networks",
+      "source": "keyword:recurrent-neural-networks",
+      "target": "concept:networks",
+      "label": "derived concept",
+      "data": {
+        "relation": "derived concept",
+        "weight": 1.6,
+        "documents": [
+          "Attention_2017.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#f59e0b",
+        "strokeWidth": 1.5,
+        "opacity": 0.65
       }
     },
     {
@@ -1365,6 +1961,29 @@
         "weight": 1.0,
         "documents": [
           "KD_Final_Report.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:stochastic-gradient-descent->keyword:generative-models",
+      "source": "keyword:stochastic-gradient-descent",
+      "target": "keyword:generative-models",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
         ],
         "shared_concepts": [],
         "shared_keywords": [],
@@ -1572,6 +2191,52 @@
         "weight": 1.0,
         "documents": [
           "Vision_Trf.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:virtual-training-criterion->keyword:generative-models",
+      "source": "keyword:virtual-training-criterion",
+      "target": "keyword:generative-models",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
+        ],
+        "shared_concepts": [],
+        "shared_keywords": [],
+        "same_category": false
+      },
+      "type": "smoothstep",
+      "animated": false,
+      "style": {
+        "stroke": "#c084fc",
+        "strokeWidth": 1.4,
+        "opacity": 0.4
+      }
+    },
+    {
+      "id": "keyword:virtual-training-criterion->keyword:stochastic-gradient-descent",
+      "source": "keyword:virtual-training-criterion",
+      "target": "keyword:stochastic-gradient-descent",
+      "label": "contextual proximity",
+      "data": {
+        "relation": "contextual proximity",
+        "weight": 1.0,
+        "documents": [
+          "gan_paper.pdf"
         ],
         "shared_concepts": [],
         "shared_keywords": [],

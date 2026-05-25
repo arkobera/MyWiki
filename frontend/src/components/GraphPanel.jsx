@@ -1,235 +1,164 @@
-import { startTransition, useEffect, useMemo, useState } from "react";
-import {
-  Background,
-  Controls,
-  Handle,
-  MiniMap,
-  ReactFlow,
-} from "@xyflow/react";
-import {
-  forceCenter,
-  forceCollide,
-  forceLink,
-  forceManyBody,
-  forceSimulation,
-  forceX,
-  forceY,
-} from "d3-force";
-import "@xyflow/react/dist/style.css";
+import { startTransition, useEffect, useRef, useState } from "react";
+import cytoscape from "cytoscape";
+import dagre from "cytoscape-dagre";
+
+cytoscape.use(dagre);
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "http://localhost:8000";
 
 const KIND_THEME = {
   category: {
-    card: "border-amber-300/75 bg-amber-400/12 text-amber-50",
-    chip: "bg-amber-300/18 text-amber-100",
-    minimap: "#f59e0b",
+    border: "#fbbf24",
+    fill: "rgba(251,191,36,0.14)",
+    text: "#fef3c7",
   },
   concept: {
-    card: "border-orange-300/75 bg-orange-400/12 text-orange-50",
-    chip: "bg-orange-300/18 text-orange-100",
-    minimap: "#fb923c",
+    border: "#fb923c",
+    fill: "rgba(251,146,60,0.14)",
+    text: "#ffedd5",
   },
   document: {
-    card: "border-cyan-300/75 bg-cyan-400/12 text-cyan-50",
-    chip: "bg-cyan-300/18 text-cyan-100",
-    minimap: "#22d3ee",
-  },
-  keyword: {
-    card: "border-violet-300/75 bg-violet-400/12 text-violet-50",
-    chip: "bg-violet-300/18 text-violet-100",
-    minimap: "#c084fc",
-  },
-  file: {
-    card: "border-emerald-300/75 bg-emerald-400/12 text-emerald-50",
-    chip: "bg-emerald-300/18 text-emerald-100",
-    minimap: "#34d399",
+    border: "#22d3ee",
+    fill: "rgba(34,211,238,0.15)",
+    text: "#cffafe",
   },
   embedding: {
-    card: "border-sky-300/75 bg-sky-400/12 text-sky-50",
-    chip: "bg-sky-300/18 text-sky-100",
-    minimap: "#38bdf8",
+    border: "#38bdf8",
+    fill: "rgba(56,189,248,0.14)",
+    text: "#e0f2fe",
+  },
+  file: {
+    border: "#34d399",
+    fill: "rgba(52,211,153,0.14)",
+    text: "#d1fae5",
+  },
+  keyword: {
+    border: "#c084fc",
+    fill: "rgba(192,132,252,0.14)",
+    text: "#f3e8ff",
   },
   default: {
-    card: "border-slate-300/60 bg-slate-400/10 text-slate-50",
-    chip: "bg-slate-300/15 text-slate-100",
-    minimap: "#94a3b8",
+    border: "#94a3b8",
+    fill: "rgba(148,163,184,0.12)",
+    text: "#e2e8f0",
   },
 };
 
-function nodeRadius(kind) {
-  if (kind === "document") {
-    return 180;
+function shortenSummary(value) {
+  if (!value) {
+    return "";
   }
-  if (kind === "category") {
-    return 135;
-  }
-  if (kind === "concept") {
-    return 110;
-  }
-  return 100;
+
+  return String(value).replace(/\s+/g, " ").trim().slice(0, 190);
 }
 
-function anchorForKind(kind) {
-  if (kind === "category") {
-    return { x: -620, y: -80 };
-  }
-  if (kind === "document") {
-    return { x: -80, y: 0 };
-  }
-  if (kind === "keyword") {
-    return { x: 460, y: -120 };
-  }
-  if (kind === "concept") {
-    return { x: 860, y: 120 };
-  }
-  return { x: 0, y: 0 };
+function buildNodeLabel(node) {
+  const kind = String(node.data?.kind || "node").toUpperCase();
+  return `${kind}\n${node.data?.label || node.id}`;
 }
 
+function buildElements(sourceNodes, sourceEdges) {
+  const nodes = sourceNodes.map((node) => {
+    const kind = node.data?.kind || "default";
+    const theme = KIND_THEME[kind] || KIND_THEME.default;
+    const summary = shortenSummary(node.data?.summary);
 
-function layoutGraph(sourceNodes, sourceEdges) {
-  // Cluster nodes by type
-  const categories = sourceNodes.filter(n => n.data?.kind === "category");
-  const documents = sourceNodes.filter(n => n.data?.kind === "document");
-  const keywords = sourceNodes.filter(n => n.data?.kind === "keyword");
-  const others = sourceNodes.filter(n => !["category","document","keyword"].includes(n.data?.kind));
-
-  // Columnar layout
-  const colX = [120, 420, 780, 1080];
-  const rowH = 120;
-
-  let nodes = [];
-  categories.forEach((n, i) => {
-    nodes.push({ ...n, position: { x: colX[0], y: 80 + i * rowH } });
-  });
-  documents.forEach((n, i) => {
-    nodes.push({ ...n, position: { x: colX[1], y: 80 + i * rowH } });
-  });
-  keywords.forEach((n, i) => {
-    nodes.push({ ...n, position: { x: colX[2], y: 80 + i * 70 } });
-  });
-  others.forEach((n, i) => {
-    nodes.push({ ...n, position: { x: colX[3], y: 80 + i * 70 } });
-  });
-
-  // Only show edges between category<->document and document<->keyword for clarity
-  const edges = sourceEdges.filter(e => {
-    const s = e.source;
-    const t = e.target;
-    return (
-      (s.startsWith("category:") && t.startsWith("document:")) ||
-      (s.startsWith("document:") && t.startsWith("category:")) ||
-      (s.startsWith("document:") && t.startsWith("keyword:")) ||
-      (s.startsWith("keyword:") && t.startsWith("document:"))
-    );
+    return {
+      data: {
+        id: node.id,
+        label: buildNodeLabel(node),
+        rawLabel: node.data?.label || node.id,
+        kind,
+        category: node.data?.category || "",
+        summary,
+        source_file: node.data?.source_file || "",
+        embedding_id: node.data?.embedding_id || "",
+        embedding_path: node.data?.embedding_path || "",
+        keyword_count: node.data?.keyword_count || 0,
+        document_count: node.data?.document_count || 0,
+        borderColor: theme.border,
+        fillColor: theme.fill,
+        textColor: theme.text,
+        width: kind === "document" ? 280 : kind === "category" ? 220 : 240,
+        height: kind === "document" ? 170 : 92,
+      },
+      classes: kind,
+    };
   });
 
-  return { nodes, edges };
+  const edges = sourceEdges.map((edge) => {
+    const relation = edge.data?.relation || "related";
+    const isPrimary = relation === "related documents";
+
+    return {
+      data: {
+        id: edge.id,
+        source: edge.source,
+        target: edge.target,
+        relation,
+        label: isPrimary ? edge.label || relation : "",
+        inspectorLabel: edge.label || relation,
+        weight: Number(edge.data?.weight || 1),
+        shared_concepts: edge.data?.shared_concepts || [],
+        shared_keywords: edge.data?.shared_keywords || [],
+        same_category: Boolean(edge.data?.same_category),
+      },
+      classes: isPrimary ? "edge-primary" : `edge-${relation.replace(/\s+/g, "-")}`,
+    };
+  });
+
+  return [...nodes, ...edges];
 }
 
-function KnowledgeNode({ data, selected }) {
-  const kind = data.kind || "default";
-  const theme = KIND_THEME[kind] || KIND_THEME.default;
-
-  return (
-    <div
-      className={`w-[260px] rounded-[24px] border px-4 py-3 shadow-[0_24px_80px_rgba(15,23,42,0.42)] backdrop-blur transition ${theme.card} ${selected ? "ring-2 ring-white/60" : ""}`}
-    >
-      <Handle type="target" position="left" className="!h-2 !w-2 !border-0 !bg-white/40" />
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/70">
-            {kind}
-          </p>
-          <div className="mt-2 text-sm font-semibold leading-5 text-white">
-            {data.label}
-          </div>
-        </div>
-
-        {data.category ? (
-          <span className={`rounded-full px-2 py-1 text-[10px] font-medium ${theme.chip}`}>
-            {data.category}
-          </span>
-        ) : null}
-      </div>
-
-      {data.summary ? (
-        <p className="mt-3 text-xs leading-5 text-slate-100/88">
-          {String(data.summary).slice(0, 160)}
-        </p>
-      ) : null}
-
-      {data.source_file ? (
-        <p className="mt-3 text-[11px] leading-5 text-slate-200/80">
-          <span className="font-semibold text-white">Source:</span> {data.source_file}
-        </p>
-      ) : null}
-
-      {data.embedding_id ? (
-        <p className="mt-1 text-[11px] leading-5 text-slate-200/80">
-          <span className="font-semibold text-white">Embedding:</span> {data.embedding_id}
-        </p>
-      ) : null}
-
-      {data.document_count ? (
-        <p className="mt-1 text-[11px] leading-5 text-slate-200/80">
-          <span className="font-semibold text-white">Shared by:</span> {data.document_count} document
-          {data.document_count === 1 ? "" : "s"}
-        </p>
-      ) : null}
-
-      {data.keyword_count ? (
-        <p className="mt-1 text-[11px] leading-5 text-slate-200/80">
-          <span className="font-semibold text-white">Keywords:</span> {data.keyword_count}
-        </p>
-      ) : null}
-      <Handle type="source" position="right" className="!h-2 !w-2 !border-0 !bg-white/40" />
-    </div>
-  );
-}
-
-const nodeTypes = {
-  category: KnowledgeNode,
-  concept: KnowledgeNode,
-  document: KnowledgeNode,
-  keyword: KnowledgeNode,
-  file: KnowledgeNode,
-  embedding: KnowledgeNode,
-  meta: KnowledgeNode,
-  default: KnowledgeNode,
-};
-
-function formatInspectorLabel(edge) {
-  if (!edge) {
-    return null;
+function describeSelection(elementData, isNode) {
+  if (!elementData) {
+    return {
+      title: "Explore the graph",
+      body: "Select a node to inspect document metadata, or pick an edge to see why two items were connected.",
+    };
   }
 
-  const sharedConcepts = edge.data?.shared_concepts || [];
-  const sharedKeywords = edge.data?.shared_keywords || [];
-  const pieces = [];
+  if (isNode) {
+    const details = [
+      elementData.summary,
+      elementData.source_file ? `Source: ${elementData.source_file}` : "",
+      elementData.embedding_id ? `Embedding: ${elementData.embedding_id}` : "",
+      elementData.document_count ? `Shared by ${elementData.document_count} documents` : "",
+      elementData.keyword_count ? `Keywords: ${elementData.keyword_count}` : "",
+    ].filter(Boolean);
 
-  if (sharedConcepts.length) {
-    pieces.push(`Shared concepts: ${sharedConcepts.join(", ")}`);
-  }
-  if (sharedKeywords.length) {
-    pieces.push(`Shared keywords: ${sharedKeywords.join(", ")}`);
-  }
-  if (edge.data?.same_category) {
-    pieces.push("Same category");
+    return {
+      title: elementData.rawLabel,
+      body: details.join("  "),
+    };
   }
 
-  return pieces.join(" • ") || edge.label;
+  const bits = [];
+  if (elementData.shared_concepts?.length) {
+    bits.push(`Shared concepts: ${elementData.shared_concepts.join(", ")}`);
+  }
+  if (elementData.shared_keywords?.length) {
+    bits.push(`Shared keywords: ${elementData.shared_keywords.join(", ")}`);
+  }
+  if (elementData.same_category) {
+    bits.push("Same category");
+  }
+
+  return {
+    title: elementData.inspectorLabel || elementData.relation,
+    body: bits.join("  ") || "This edge captures a semantic relationship in the graph.",
+  };
 }
 
 export default function GraphPanel({ refreshKey = "" }) {
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
-  const [status, setStatus] = useState("Loading graph…");
+  const containerRef = useRef(null);
+  const cyRef = useRef(null);
+  const [status, setStatus] = useState("Loading graph...");
   const [graphMeta, setGraphMeta] = useState(null);
-  const [selectedNode, setSelectedNode] = useState(null);
-  const [selectedEdge, setSelectedEdge] = useState(null);
+  const [selection, setSelection] = useState(() => describeSelection(null, true));
   const [isLoading, setIsLoading] = useState(true);
+  const [cyElements, setCyElements] = useState([]);
 
   useEffect(() => {
     let ignore = false;
@@ -253,18 +182,12 @@ export default function GraphPanel({ refreshKey = "" }) {
           return;
         }
 
-        const layouted = layoutGraph(payload.nodes || [], payload.edges || []);
-        const nextEdges = layouted.edges.map((edge) => ({
-          ...edge,
-          label: "",
-        }));
+        const elements = buildElements(payload.nodes || [], payload.edges || []);
+        setCyElements(elements);
 
         startTransition(() => {
-          setNodes(layouted.nodes);
-          setEdges(nextEdges);
           setGraphMeta(payload.meta || null);
-          setSelectedNode(null);
-          setSelectedEdge(null);
+          setSelection(describeSelection(null, true));
         });
 
         setStatus(
@@ -274,9 +197,8 @@ export default function GraphPanel({ refreshKey = "" }) {
         );
       } catch (error) {
         if (!ignore) {
-          setNodes([]);
-          setEdges([]);
           setGraphMeta(null);
+          setSelection(describeSelection(null, true));
           setStatus(error.message || "Unable to load the knowledge graph.");
         }
       } finally {
@@ -290,26 +212,159 @@ export default function GraphPanel({ refreshKey = "" }) {
 
     return () => {
       ignore = true;
+      if (cyRef.current) {
+        cyRef.current.destroy();
+        cyRef.current = null;
+      }
     };
   }, [refreshKey]);
 
-  const hasGraphData = nodes.length > 0;
+  useEffect(() => {
+    if (isLoading) {
+      return undefined;
+    }
 
-  const fitViewOptions = useMemo(
-    () => ({
-      padding: 0.2,
-      duration: 250,
-      maxZoom: 1.2,
-    }),
-    []
-  );
+    if (cyRef.current) {
+      cyRef.current.destroy();
+      cyRef.current = null;
+    }
 
-  const inspectorText = selectedNode
-    ? selectedNode.data?.summary ||
-      selectedNode.data?.source_file ||
-      selectedNode.data?.embedding_path ||
-      "This node does not have extra detail yet."
-    : formatInspectorLabel(selectedEdge);
+    if (!containerRef.current || cyElements.length === 0) {
+      return undefined;
+    }
+
+    const cy = cytoscape({
+      container: containerRef.current,
+      elements: cyElements,
+      wheelSensitivity: 0.16,
+      pixelRatio: "auto",
+      textureOnViewport: false,
+      motionBlur: false,
+      selectionType: "single",
+      style: [
+        {
+          selector: "node",
+          style: {
+            shape: "round-rectangle",
+            width: "data(width)",
+            height: "data(height)",
+            padding: "18px",
+            "background-color": "data(fillColor)",
+            "border-width": 2,
+            "border-color": "data(borderColor)",
+            label: "data(label)",
+            "text-wrap": "wrap",
+            "text-max-width": 220,
+            "text-valign": "top",
+            "text-halign": "left",
+            "font-size": 12,
+            "font-weight": 650,
+            "font-family": "ui-sans-serif, system-ui, sans-serif",
+            color: "data(textColor)",
+            "text-margin-x": -92,
+            "text-margin-y": -26,
+            "overlay-opacity": 0,
+          },
+        },
+        {
+          selector: "node:selected",
+          style: {
+            "border-width": 3,
+            "border-color": "#f8fafc",
+            "shadow-blur": 22,
+            "shadow-color": "#f8fafc",
+            "shadow-opacity": 0.18,
+          },
+        },
+        {
+          selector: "edge",
+          style: {
+            width: "mapData(weight, 1, 8, 1.5, 4.5)",
+            "line-color": "rgba(148,163,184,0.62)",
+            "target-arrow-color": "rgba(148,163,184,0.82)",
+            "target-arrow-shape": "triangle",
+            "curve-style": "bezier",
+            "source-endpoint": "outside-to-node",
+            "target-endpoint": "outside-to-node",
+            "arrow-scale": 1.1,
+            "overlay-opacity": 0,
+            opacity: 0.9,
+          },
+        },
+        {
+          selector: ".edge-primary",
+          style: {
+            "line-color": "#38bdf8",
+            "target-arrow-color": "#38bdf8",
+            width: 4.2,
+            "z-index": 12,
+          },
+        },
+        {
+          selector: ".edge-contextual-proximity",
+          style: {
+            "line-style": "dashed",
+            "line-dash-pattern": [7, 5],
+            "line-color": "rgba(192,132,252,0.68)",
+            "target-arrow-color": "rgba(192,132,252,0.72)",
+            opacity: 0.78,
+          },
+        },
+        {
+          selector: ".edge-derived-concept",
+          style: {
+            "line-color": "rgba(251,146,60,0.72)",
+            "target-arrow-color": "rgba(251,146,60,0.76)",
+          },
+        },
+        {
+          selector: "edge:selected",
+          style: {
+            width: 5.2,
+            "line-color": "#f8fafc",
+            "target-arrow-color": "#f8fafc",
+          },
+        },
+      ],
+      layout: {
+        name: "dagre",
+        rankDir: "LR",
+        fit: true,
+        padding: 48,
+        nodeSep: 60,
+        edgeSep: 26,
+        rankSep: 180,
+        ranker: "network-simplex",
+        animate: false,
+      },
+    });
+
+    cy.on("tap", "node", (event) => {
+      setSelection(describeSelection(event.target.data(), true));
+    });
+
+    cy.on("tap", "edge", (event) => {
+      setSelection(describeSelection(event.target.data(), false));
+    });
+
+    cy.on("tap", (event) => {
+      if (event.target === cy) {
+        setSelection(describeSelection(null, true));
+      }
+    });
+
+    cy.minZoom(0.35);
+    cy.maxZoom(2.2);
+    cy.fit(cy.elements(), 40);
+    cyRef.current = cy;
+
+    return () => {
+      if (cyRef.current === cy) {
+        cy.destroy();
+        cyRef.current = null;
+      }
+    };
+  }, [cyElements, isLoading]);
 
   return (
     <section className="flex w-full min-h-[420px] flex-1 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,_rgba(15,23,42,0.95),_rgba(2,6,23,0.96))] shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
@@ -344,76 +399,28 @@ export default function GraphPanel({ refreshKey = "" }) {
         </div>
       </div>
 
-      <div className="flex flex-1 min-h-0 flex-col">
+      <div className="flex min-h-0 flex-1 flex-col">
         {isLoading ? (
           <div className="flex flex-1 items-center justify-center px-6 py-8 text-center text-xl font-medium text-slate-400">
-            Loading data…
+            Loading data...
           </div>
-        ) : hasGraphData ? (
+        ) : (
           <>
             <div className="min-h-0 flex-1">
-              <div className="h-[clamp(420px,56vh,760px)] w-full min-w-0">
-                <ReactFlow
-                  nodes={nodes}
-                  edges={edges}
-                  nodeTypes={nodeTypes}
-                  fitView
-                  fitViewOptions={fitViewOptions}
-                  nodesDraggable
-                  panOnScroll
-                  zoomOnScroll
-                  onNodeClick={(_, node) => {
-                    setSelectedNode(node);
-                    setSelectedEdge(null);
-                  }}
-                  onEdgeClick={(_, edge) => {
-                    setSelectedEdge(edge);
-                    setSelectedNode(null);
-                  }}
-                  onPaneClick={() => {
-                    setSelectedNode(null);
-                    setSelectedEdge(null);
-                  }}
-                  className="bg-slate-950/65"
-                  style={{ width: "100%", height: "100%" }}
-                >
-                <Background gap={20} size={1} color="rgba(148, 163, 184, 0.18)" />
-                <MiniMap
-                  nodeColor={(node) =>
-                    (KIND_THEME[node.data?.kind] || KIND_THEME.default).minimap
-                  }
-                  maskColor="rgba(15, 23, 42, 0.72)"
-                  bgColor="rgba(2, 6, 23, 0.96)"
-                  style={{
-                    background: "rgba(2, 6, 23, 0.96)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: 16,
-                  }}
-                  pannable
-                  zoomable
-                />
-                <Controls position="bottom-right" />
-                </ReactFlow>
-              </div>
+              <div
+                ref={containerRef}
+                className="h-[clamp(460px,60vh,820px)] w-full min-w-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.08),_transparent_34%),linear-gradient(180deg,_rgba(2,6,23,0.25),_rgba(2,6,23,0.55))]"
+              />
             </div>
 
             <aside className="border-t border-white/8 bg-slate-950/45 px-5 py-5">
               <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-cyan-300/70">
                 Inspector
               </p>
-              <h3 className="mt-3 text-lg font-semibold text-white">
-                {selectedNode?.data?.label || selectedEdge?.label || "Explore the graph"}
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-slate-300">
-                {inspectorText ||
-                  "Select a node to inspect its summary and metadata, or pick a document edge to see why two files were connected."}
-              </p>
+              <h3 className="mt-3 text-lg font-semibold text-white">{selection.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-300">{selection.body}</p>
             </aside>
           </>
-        ) : (
-          <div className="flex flex-1 items-center justify-center px-6 py-8 text-center text-xl font-medium text-slate-400">
-            No graph data available yet.
-          </div>
         )}
       </div>
     </section>
