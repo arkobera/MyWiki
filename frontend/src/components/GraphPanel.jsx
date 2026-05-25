@@ -87,54 +87,45 @@ function anchorForKind(kind) {
   return { x: 0, y: 0 };
 }
 
+
 function layoutGraph(sourceNodes, sourceEdges) {
-  const safeNodes = sourceNodes.map((node, index) => ({
-    ...node,
-    position: {
-      x: Number.isFinite(node.position?.x) ? node.position.x : 0,
-      y: Number.isFinite(node.position?.y) ? node.position.y : 0,
-    },
-    __layoutIndex: index,
-  }));
+  // Cluster nodes by type
+  const categories = sourceNodes.filter(n => n.data?.kind === "category");
+  const documents = sourceNodes.filter(n => n.data?.kind === "document");
+  const keywords = sourceNodes.filter(n => n.data?.kind === "keyword");
+  const others = sourceNodes.filter(n => !["category","document","keyword"].includes(n.data?.kind));
 
-  const width = 960;
-  const height = 540;
+  // Columnar layout
+  const colX = [120, 420, 780, 1080];
+  const rowH = 120;
 
-  const bounds = safeNodes.reduce(
-    (acc, node) => {
-      const x = node.position.x;
-      const y = node.position.y;
-      return {
-        minX: Math.min(acc.minX, x),
-        maxX: Math.max(acc.maxX, x),
-        minY: Math.min(acc.minY, y),
-        maxY: Math.max(acc.maxY, y),
-      };
-    },
-    { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity }
-  );
+  let nodes = [];
+  categories.forEach((n, i) => {
+    nodes.push({ ...n, position: { x: colX[0], y: 80 + i * rowH } });
+  });
+  documents.forEach((n, i) => {
+    nodes.push({ ...n, position: { x: colX[1], y: 80 + i * rowH } });
+  });
+  keywords.forEach((n, i) => {
+    nodes.push({ ...n, position: { x: colX[2], y: 80 + i * 70 } });
+  });
+  others.forEach((n, i) => {
+    nodes.push({ ...n, position: { x: colX[3], y: 80 + i * 70 } });
+  });
 
-  const graphWidth = Math.max(bounds.maxX - bounds.minX, 160);
-  const graphHeight = Math.max(bounds.maxY - bounds.minY, 160);
-  const scale = Math.min((width - 120) / graphWidth, (height - 120) / graphHeight, 1);
+  // Only show edges between category<->document and document<->keyword for clarity
+  const edges = sourceEdges.filter(e => {
+    const s = e.source;
+    const t = e.target;
+    return (
+      (s.startsWith("category:") && t.startsWith("document:")) ||
+      (s.startsWith("document:") && t.startsWith("category:")) ||
+      (s.startsWith("document:") && t.startsWith("keyword:")) ||
+      (s.startsWith("keyword:") && t.startsWith("document:"))
+    );
+  });
 
-  const centerX = (bounds.minX + bounds.maxX) / 2;
-  const centerY = (bounds.minY + bounds.maxY) / 2;
-  const targetCenterX = width / 2;
-  const targetCenterY = height / 2;
-
-  const positionedNodes = safeNodes.map((node) => ({
-    ...node,
-    position: {
-      x: Math.round((node.position.x - centerX) * scale + targetCenterX),
-      y: Math.round((node.position.y - centerY) * scale + targetCenterY),
-    },
-  }));
-
-  return {
-    nodes: positionedNodes,
-    edges: sourceEdges,
-  };
+  return { nodes, edges };
 }
 
 function KnowledgeNode({ data, selected }) {
