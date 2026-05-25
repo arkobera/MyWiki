@@ -5,7 +5,7 @@
 
 ## Graph Screenshot
 
-![Knowledge graph screenshot](frontend/src/assets/hero.png)
+![Knowledge graph screenshot](Assets/front_screen.png)
 
 ## Run Locally
 
