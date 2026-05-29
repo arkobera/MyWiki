@@ -1,7 +1,5 @@
 import { useRef, useState } from "react";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "http://localhost:8000";
+import { requestJson } from "../lib/api";
 
 const SUPPORTED_TYPES = [
   ".pdf",
@@ -50,21 +48,10 @@ export default function UploadBox({ onUpload }) {
     formData.append("file", file);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/upload`, {
+      const data = await requestJson("/upload", {
         method: "POST",
         body: formData,
       });
-
-      let data = {};
-      try {
-        data = await res.json();
-      } catch {
-        data = {};
-      }
-
-      if (!res.ok) {
-        throw new Error(data.detail || data.message || "Upload failed.");
-      }
 
       const pipelineStatus = data.pipeline?.status || null;
       const pipelineError = data.pipeline?.error || "";

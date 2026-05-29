@@ -4,11 +4,10 @@ import StatusBar from "./components/StatusBar";
 import FileList from "./components/FileList";
 import GraphPanel from "./components/GraphPanel";
 import Chat from "./pages/Chat";
+import { API_BASE_URL, requestJson } from "./lib/api";
 
 const FILE_STORAGE_KEY = "mywiki-uploaded-files";
 const TAB_STORAGE_KEY = "mywiki-active-tab";
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "http://localhost:8000";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState(() => {
@@ -57,12 +56,7 @@ export default function App() {
 
     const loadFiles = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/files`);
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.detail || "Could not load existing files.");
-        }
+        const data = await requestJson("/files");
 
         if (!ignore && Array.isArray(data.files)) {
           setFiles(data.files);

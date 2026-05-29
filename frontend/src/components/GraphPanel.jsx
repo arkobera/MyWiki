@@ -1,11 +1,9 @@
 import { startTransition, useEffect, useRef, useState } from "react";
 import cytoscape from "cytoscape";
 import dagre from "cytoscape-dagre";
+import { requestJson } from "../lib/api";
 
 cytoscape.use(dagre);
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "http://localhost:8000";
 
 const KIND_THEME = {
   category: {
@@ -169,14 +167,7 @@ export default function GraphPanel({ refreshKey = "" }) {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/knowledge-graph`, {
-          cache: "no-store",
-        });
-        const payload = await response.json();
-
-        if (!response.ok) {
-          throw new Error(payload.detail || "Unable to load the knowledge graph.");
-        }
+        const payload = await requestJson("/knowledge-graph");
 
         if (ignore) {
           return;

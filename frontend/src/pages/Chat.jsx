@@ -1,7 +1,44 @@
 import { useState } from "react";
+import { requestJson } from "../lib/api";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "http://localhost:8000";
+function buildSourceLabel(payload) {
+  if (!payload?.document_name) {
+    return null;
+  }
+
+  if (payload.embedding_id) {
+    return `${payload.document_name} (${payload.embedding_id})`;
+  }
+
+  return payload.document_name;
+}
+
+function buildAssistantMessage(payload) {
+  return {
+    role: "assistant",
+    text: payload.answer || "No answer was returned.",
+    source: buildSourceLabel(payload),
+    sourceFile: payload.source_file || null,
+    category: payload.category || null,
+    similarity:
+      typeof payload.similarity === "number" ? payload.similarity.toFixed(4) : null,
+    keywords: Array.isArray(payload.keywords) ? payload.keywords : [],
+    isError: false,
+  };
+}
+
+function buildErrorMessage(error) {
+  return {
+    role: "assistant",
+    text: error.message || "Unable to connect to the chat backend.",
+    source: null,
+    sourceFile: null,
+    category: null,
+    similarity: null,
+    keywords: [],
+    isError: true,
+  };
+}
 
 export default function Chat() {
   const [query, setQuery] = useState("");
@@ -24,28 +61,26 @@ export default function Chat() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/chat`, {
+      const payload = await requestJson("/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ query: trimmedQuery }),
       });
-
-      const payload = await response.json();
-      if (!response.ok) {
-        throw new Error(payload.detail || "Chat request failed.");
-      }
-
-      const assistantMessage = {
-        role: "assistant",
-        text: payload.answer || "No answer was returned.",
-        source: payload.document_name ? `${payload.document_name} (${payload.embedding_id})` : null,
-      };
+      const assistantMessage = buildAssistantMessage(payload);
       setMessages((current) => [...current, assistantMessage]);
-      setStatus("Answer received.");
+      setStatus(
+        assistantMessage.source
+          ? `Answer received from ${assistantMessage.source}.`
+          : "Answer received."
+      );
     } catch (error) {
-      setStatus(error.message || "Unable to connect to the chat backend.");
+      const assistantMessage = buildErrorMessage(error);
+      setMessages((current) => [...current, assistantMessage]);
+      setStatus(
+        error.message || "The backend returned an error while processing the query."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +108,9 @@ export default function Chat() {
                   className={`rounded-3xl px-4 py-3 shadow-sm ${
                     message.role === "user"
                       ? "self-end bg-white/10 text-white"
-                      : "self-start bg-cyan-500/10 text-slate-100"
+                      : message.isError
+                        ? "self-start border border-rose-400/25 bg-rose-500/10 text-rose-100"
+                        : "self-start bg-cyan-500/10 text-slate-100"
                   }`}
                 >
                   <div className="text-xs uppercase tracking-[0.25em] text-slate-400">
@@ -82,6 +119,29 @@ export default function Chat() {
                   <p className="mt-2 whitespace-pre-wrap text-sm leading-6">{message.text}</p>
                   {message.source ? (
                     <div className="mt-3 text-[11px] text-slate-400">Source: {message.source}</div>
+                  ) : null}
+                  {message.sourceFile ? (
+                    <div className="mt-1 text-[11px] text-slate-400">File: {message.sourceFile}</div>
+                  ) : null}
+                  {message.category ? (
+                    <div className="mt-1 text-[11px] text-slate-400">Category: {message.category}</div>
+                  ) : null}
+                  {message.similarity ? (
+                    <div className="mt-1 text-[11px] text-slate-400">
+                      Similarity: {message.similarity}
+                    </div>
+                  ) : null}
+                  {message.keywords?.length ? (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {message.keywords.map((keyword) => (
+                        <span
+                          key={keyword}
+                          className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-200"
+                        >
+                          {keyword}
+                        </span>
+                      ))}
+                    </div>
                   ) : null}
                 </div>
               ))

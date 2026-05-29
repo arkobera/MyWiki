@@ -50,7 +50,10 @@ class IndexEntry:
     embedding_id: str
 
 
-def parse_index_markdown(content: str) -> list[IndexEntry]:
+def parse_index_markdown(content: str | Path) -> list[IndexEntry]:
+    if isinstance(content, Path):
+        content = content.read_text(encoding="utf-8")
+
     sections = [section.strip() for section in content.split("\n---") if section.strip()]
     entries: list[IndexEntry] = []
 
