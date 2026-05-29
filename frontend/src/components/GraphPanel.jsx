@@ -366,6 +366,20 @@ export default function GraphPanel({ refreshKey = "" }) {
     };
   }, [cyElements, isLoading]);
 
+  const handleZoom = (direction) => {
+    const cy = cyRef.current;
+    if (!cy) {
+      return;
+    }
+
+    const nextLevel = direction === "in" ? cy.zoom() * 1.33 : cy.zoom() * 0.75;
+    cy.zoom(nextLevel);
+    cy.center(cy.elements());
+  };
+
+  const handleZoomIn = () => handleZoom("in");
+  const handleZoomOut = () => handleZoom("out");
+
   return (
     <section className="flex w-full min-h-[420px] flex-1 flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,_rgba(15,23,42,0.95),_rgba(2,6,23,0.96))] shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
       <div className="border-b border-white/8 px-6 py-5">
@@ -380,22 +394,41 @@ export default function GraphPanel({ refreshKey = "" }) {
             <p className="mt-2 text-sm text-slate-300">{status}</p>
           </div>
 
-          {graphMeta ? (
-            <div className="grid grid-cols-3 gap-2 text-center text-[11px] text-slate-200">
-              <div className="rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-2">
-                <div className="text-lg font-semibold text-white">{graphMeta.document_count}</div>
-                <div>Documents</div>
-              </div>
-              <div className="rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-2">
-                <div className="text-lg font-semibold text-white">{graphMeta.node_count}</div>
-                <div>Nodes</div>
-              </div>
-              <div className="rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-2">
-                <div className="text-lg font-semibold text-white">{graphMeta.edge_count}</div>
-                <div>Edges</div>
-              </div>
+          <div className="flex flex-col items-start gap-3 sm:items-end">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleZoomOut}
+                className="inline-flex h-9 items-center justify-center rounded-full border border-white/10 bg-white/5 px-3 text-sm font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300/60"
+              >
+                − Zoom out
+              </button>
+              <button
+                type="button"
+                onClick={handleZoomIn}
+                className="inline-flex h-9 items-center justify-center rounded-full border border-white/10 bg-white/5 px-3 text-sm font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300/60"
+              >
+                + Zoom in
+              </button>
             </div>
-          ) : null}
+
+            {graphMeta ? (
+              <div className="grid grid-cols-3 gap-2 text-center text-[11px] text-slate-200">
+                <div className="rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-2">
+                  <div className="text-lg font-semibold text-white">{graphMeta.document_count}</div>
+                  <div>Documents</div>
+                </div>
+                <div className="rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-2">
+                  <div className="text-lg font-semibold text-white">{graphMeta.node_count}</div>
+                  <div>Nodes</div>
+                </div>
+                <div className="rounded-2xl border border-white/8 bg-white/[0.04] px-3 py-2">
+                  <div className="text-lg font-semibold text-white">{graphMeta.edge_count}</div>
+                  <div>Edges</div>
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
 
