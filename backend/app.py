@@ -8,7 +8,9 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 from Pipeline.main import run_pipeline
+from Pipeline.retrieval_agent import RetrievalAgent
 from backend.knowledge_graph import persist_knowledge_graph
+from pydantic import BaseModel
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT_DIR / "raw"
@@ -91,6 +93,27 @@ def list_files() -> dict[str, list[str]]:
 def knowledge_graph() -> dict[str, object]:
     graph_data = persist_knowledge_graph(ROOT_DIR / "Agents" / "index.md")
     return {"source": "Agents/index.md", **graph_data}
+
+
+class ChatRequest(BaseModel):
+    query: str
+
+
+@app.post("/chat")
+def chat(request: ChatRequest) -> dict[str, object]:
+    query_text = request.query.strip()
+    if not query_text:
+        raise HTTPException(status_code=400, detail="A non-empty query is required.")
+
+    try:
+        result = RetrievalAgent().answer(query_text)
+        return result
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
 @app.post("/upload")

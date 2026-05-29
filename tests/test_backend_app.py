@@ -116,3 +116,39 @@ embed-beta
     assert alpha_node["data"]["embedding_id"] == "embed-alpha"
     assert alpha_node["data"]["embedding_path"] == "embeddings/embed-alpha"
     assert (tmp_path / "Agents" / "graph.json").exists()
+
+
+def test_chat_endpoint_calls_retrieval_agent(monkeypatch, tmp_path) -> None:
+    raw_dir = tmp_path / "raw"
+    raw_dir.mkdir()
+    agents_dir = tmp_path / "Agents"
+    agents_dir.mkdir()
+
+    monkeypatch.setattr(backend_app, "ROOT_DIR", tmp_path)
+
+    class FakeRetrievalAgent:
+        def __init__(self):
+            pass
+
+        def answer(self, query_text):
+            return {
+                "query": query_text,
+                "answer": "Mock answer.",
+                "document_name": "Alpha",
+                "embedding_id": "embed-alpha",
+                "similarity": 0.92,
+                "source_file": "raw/alpha.pdf",
+                "category": "AI",
+                "keywords": ["test"],
+            }
+
+    monkeypatch.setattr(backend_app, "RetrievalAgent", FakeRetrievalAgent)
+
+    client = TestClient(backend_app.app)
+    response = client.post("/chat", json={"query": "What is attention?"})
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["answer"] == "Mock answer."
+    assert payload["query"] == "What is attention?"
+    assert payload["embedding_id"] == "embed-alpha"
